@@ -1,14 +1,10 @@
 var setList = [];
-var setCounter = 1;
-var tuneCounter = 1;
 
 addSet();
 
 function addSet() {
    console.log("Started: Adding set");
-   let setName = "Set " + setCounter;
-   setList.push(new TunesSet(setName));
-   setCounter++;
+   setList.push(new TunesSet());
    console.log("Finished: Adding set");
    updateLeftPanel();
 }
@@ -62,7 +58,7 @@ function updateLeftPanel() {
    }
    for (tunesSet of setList) {
       let currentTunesSet = tunesSet;
-      let setDiv = createElem(SETS_DIV, null, "div", "setDiv" + setCounter, null, ["container", "p-3", "my-2", "text-bg-secondary", "rounded-3"], null);
+      let setDiv = createElem(SETS_DIV, null, "div", "setDiv" + tunesSet.setId, null, ["container", "p-3", "my-2", "text-bg-secondary", "rounded-3"], null);
       let setHeader = createElem(setDiv, null, "div", null, null, ["my-2", "d-flex", "flex-row"], null);
       let setTitle = createElem(setHeader, null, "input", null, "text", ["form-control", "w-50"], null)
       setTitle.setAttribute("placeholder", "Set title");
@@ -80,8 +76,8 @@ function updateLeftPanel() {
       buttonMoveSetDown.onclick = function(){
          moveSetDown(currentTunesSet);
       };
-      let tunesDiv = createElem(setDiv, null, "div", "tunesDivOfSetDiv" + setCounter, ["container", "my-2"], null, null);
-      let modalDiv = createElem(setDiv, null, "div", "modalDivOfSetDiv" + setCounter, null, ["modal"], null);
+      let tunesDiv = createElem(setDiv, null, "div", "tunesDivOfSetDiv" + tunesSet.setId, ["container", "my-2"], null, null);
+      let modalDiv = createElem(setDiv, null, "div", "modalDivOfSetDiv" + tunesSet.setId, null, ["modal"], null);
       let modalDialogDiv = createElem(modalDiv, null, "div", null, null, ["modal-dialog"], null);
       let modalContentDiv = createElem(modalDialogDiv, null, "div", null, null, ["modal-content"], null);
       let modalHeaderDiv = createElem(modalContentDiv, null, "div", null, null, ["modal-header"], null);

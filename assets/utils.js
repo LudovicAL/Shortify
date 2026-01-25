@@ -1,15 +1,21 @@
-var tuneId = 0;
+var setId = 1;
+var tuneId = 1;
 
 class Tune {
    constructor(tuneName) {
-      this.tuneId = tuneId++;
+      let currentTuneId = tuneId;
+      this.tuneId = currentTuneId;
+      tuneId++;
       this.tuneName = tuneName;
    }
 }
 
 class TunesSet {
-   constructor(setName) {
-      this.setName = setName;
+   constructor() {
+      let currentSetId = setId;
+      this.setId = currentSetId;
+      this.setName = "Set " + this.setId;
+      setId++;
       this.tuneList = [];
    }
   
