@@ -1,4 +1,5 @@
 window.onload = function initEditor() {
+   /*
    console.log("Loading ABCJS Editor");
    var abcEditor = new ABCJS.Editor("abcTextArea", {
       canvas_id: "renderingDiv",
@@ -8,11 +9,15 @@ window.onload = function initEditor() {
       responsive: "resize"
    });
    console.log("ABCJS Editor Loaded");
+   */
    addSet();
 }
 
 var setCounter = 1;
 var tuneCounter = 1;
+var abcTextArea = document.getElementById("abcTextArea");
+var renderingDiv = document.getElementById("renderingDiv");
+abcTextArea.addEventListener('input', onAbcTextAreaChanged);
 
 function addSet() {
    var currentCount = setCounter;
@@ -62,6 +67,7 @@ function removeSet(setId) {
    console.log("Remove set button clicked: " + setId);
    let setNode = document.getElementById("set" + setId + "Div");
    setNode.parentNode.removeChild(setNode);
+   updateAbc();
 }
 
 function moveSetUp(setId) {
@@ -73,6 +79,7 @@ function moveSetUp(setId) {
       let setNodeOther = setNode.parentNode.children[index - 1];
       setNode.parentNode.insertBefore(setNode, setNodeOther);
    }
+   updateAbc();
 }
 
 function moveSetDown(setId) {
@@ -84,30 +91,45 @@ function moveSetDown(setId) {
       let setNodeOther = setNode.parentNode.children[index + 1];
       setNodeOther.parentNode.insertBefore(setNodeOther, setNode);
    }
+   updateAbc();
 }
 
 function addTune(setId, tuneName) {
    console.log("Add tune button clicked: " + setId + ", " + tuneName);
    if (tuneExists(tuneName)) {
       let tuneDivNode = document.getElementById("tuneDiv" + setId);
-      let newTuneDivNode = createElem(tuneDivNode, null, "div", "tune " + tuneCounter + ", " + tuneName, null, ["container", "p-4", "my-2", "text-bg-warning", "rounded-3"], null);
+      let newTuneDivNode = createElem(tuneDivNode, null, "div", "tune " + tuneCounter + ", " + tuneName, null, ["container", "p-4", "my-2", "text-bg-warning", "rounded-3", "tune"], null);
       tuneCounter++;
       let newTuneTitleNode = createElem(newTuneDivNode, null, "h4", null, null, null, tuneName);
       let newTuneCloseButton = createElem(newTuneTitleNode, null, "button", null, "button", ["btn", "btn-close", "btn-sm", "float-end"], null);
       newTuneCloseButton.onclick = function(){removeTune(setId, newTuneDivNode);};
-      requestAbc(setId, newTuneDivNode, tuneName);
+      updateAbc();
    } else {
-      displayToast("This tune does not exist.");
+      if (tuneName.length > 0) {
+         displayToast("The database contains no tune named: " + tuneName);
+      } else {
+         displayToast("No tune selected.");
+      }
    }
 }
 
 function removeTune(setId, tuneNode) {
    console.log("Remove tune button clicked: " + setId + ", " + tuneNode);
    tuneNode.parentNode.removeChild(tuneNode);
+   updateAbc();
 }
 
-function updatePrintableDiv() {
+function onAbcTextAreaChanged() {
    console.log("Abc change detected");
+   while (renderingDiv.firstChild) {
+      renderingDiv.firstChild.remove()
+   }
+   let tuneBook = new ABCJS.TuneBook(abcTextArea.value);
+   console.log("Number of tunes: " + tuneBook.tunes.length);
+   for (let i = 0, max = tuneBook.tunes.length; i < max; i++) {
+      let renderElem = createElem(renderingDiv, null, "div", "tuneRendering" + i, null, null);
+      ABCJS.renderAbc(["tuneRendering" + i], tuneBook.tunes[i].abc);
+   }
 }
 
 function printRendering() {
@@ -119,23 +141,28 @@ function printRendering() {
 function updateAbc() {
    console.log("Updating the ABC text field...");
    let abcInputText = "";
+   let tuneDivs = document.getElementsByClassName("tune");
    let index = 1;
-   let tuneDiv = document.getElementById("tuneDiv" + index);
-   while (tuneDiv !== null) {
+   for (tuneDiv of tuneDivs) {
       for (const childNode of tuneDiv.childNodes) {
-         let tuneTitle = childNode.childNodes[0].innerText;
-         let tuneAbc = mapOfSelectedTunes.get(tuneTitle);
-         if (tuneAbc) {
-            abcInputText = abcInputText.concat(tuneAbc);
+         let tuneTitle = childNode.innerText;
+         let tuneData = getTuneData(tuneTitle);
+         if (tuneData) {
+            abcInputText = abcInputText.concat(
+               "X:" + index + "\n"
+               + "R:" + tuneData.file_name + "\n"
+               + "M:" + tuneData.time_signature + "\n"
+               + "L:" + tuneData.default_note_length + "\n"
+               + "K:" + tuneData.key + "\n"
+               + tuneData.incipit_start + "\n"
+            );
          } else {
             displayToast("An error occured while updating the ABC text input field with data for: " + tuneTitle);
          }
+         index++;
       }
-      index++;
-      tuneDiv = document.getElementById("tuneDiv" + index);
    }
-   let abcTextArea = document.getElementById("abcTextArea");
    abcTextArea.value = abcInputText;
-   abcTextArea.dispatchEvent(new Event('change'));
+   abcTextArea.dispatchEvent(new Event('input'));
    console.log("ABC text field updated");
 }

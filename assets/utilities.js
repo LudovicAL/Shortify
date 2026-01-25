@@ -62,7 +62,3 @@ function createElem(elemParent, elemParentNextElem, elemRoot, elemId, elemType, 
 function convertTextToUrl(content) {
    return content.replace(" ", "%20").replace(" | ", "%3B").replace(";", "%3B").replace("#", "%23");
 }
-
-function extractTunePrefix(abcData) {
-   
-}
