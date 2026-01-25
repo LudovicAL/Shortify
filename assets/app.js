@@ -26,7 +26,7 @@ function removeSet(tunesSet) {
    }
 }
 
-sfunction moveSetUp(tunesSet) {
+function moveSetUp(tunesSet) {
    console.log("Started: Moving set up");
    let index = setList.indexOf(tunesSet);
    if (index > 0) {
