@@ -131,7 +131,7 @@ function updateAbcTextArea() {
    for (tunesSet of setList) {
       let index = 1;
       let abcInputText = "";
-      let abcTextArea = createElem(ABC_TAB, null, "textarea", null, null, ["form-control"], null);
+      let abcTextArea = createElem(ABC_TAB, null, "textarea", null, null, ["form-control", "my-1"], null);
       abcTextArea.addEventListener('input', updateAbcRender);
       for (tune of tunesSet.tuneList) {
          let tuneData = getTuneData(tune.tuneName);
@@ -150,6 +150,7 @@ function updateAbcTextArea() {
          index++;
       }
       abcTextArea.value = abcInputText;
+      abcTextArea.rows(Math.max(abcInputText.split(/\r\n|\r|\n/).length, 2).toString())
    }
    console.log("Finished: ABC text area update");
    updateAbcRender();
