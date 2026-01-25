@@ -27,9 +27,9 @@ class TunesSet {
    }
 
    removeTune(tune) {
-      let index = this.tunelist.indexOf(tune);
+      let index = this.tuneList.indexOf(tune);
       if (index > -1) {
-         this.tunelist.splice(index, 1);
+         this.tuneList.splice(index, 1);
       }
    }
 }
