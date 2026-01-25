@@ -35,6 +35,13 @@ function tuneExists(tuneName) {
    return false;
 }
 
+function capitalize(content) {
+   if (!content) {
+      return "";
+   }
+   return content.charAt(0).toUpperCase() + content.slice(1);
+}
+
 function createElem(elemParent, elemParentNextElem, elemRoot, elemId, elemType, elemClasses, elemText) {
    const elem = document.createElement(elemRoot);
    if (elemId != null) {

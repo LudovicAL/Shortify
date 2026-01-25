@@ -7,93 +7,89 @@ var tuneCounter = 1;
 var abcTextArea = document.getElementById("abcTextArea");
 var renderingDiv = document.getElementById("renderingDiv");
 var warningsDiv = document.getElementById("warningsDiv");
-abcTextArea.addEventListener('input', onAbcTextAreaChanged);
+var setsDiv = document.getElementById("setsDiv");
+abcTextArea.addEventListener('input', updateAbcRender);
 
 function addSet() {
    var currentCount = setCounter;
    console.log("Add set button clicked: " + currentCount);
-   let setDiv = createElem(document.getElementById("leftColumn"), document.getElementById("addSetButton"), "div", "set" + currentCount + "Div", null, ["container", "p-3", "my-2", "text-bg-secondary", "rounded-3"], null);
+   let setDiv = createElem(setsDiv, null, "div", "setDiv" + currentCount, null, ["container", "p-3", "my-2", "text-bg-secondary", "rounded-3"], null);
    let setHeader = createElem(setDiv, null, "div", null, null, ["my-2", "d-flex", "flex-row"], null);
    let setTitle = createElem(setHeader, null, "input", null, "text", ["form-control", "w-50"], null)
    setTitle.setAttribute("placeholder", "Set title");
    setTitle.value = "Set " + currentCount;
    let setHeaderButtonDiv = createElem(setHeader, null, "div", null, null, ["w-50"], null);
    let buttonRemoveSet = createElem(setHeaderButtonDiv, null, "button", null, "button", ["btn", "btn-danger", "btn-sm", "mx-1", "float-end"], "Remove set");
-   buttonRemoveSet.onclick = function(){removeSet(currentCount)};
+   buttonRemoveSet.onclick = function(){removeSet(setDiv)};
    let buttonMoveSetUp = createElem(setHeaderButtonDiv, null, "button", null, "button", ["btn", "btn-success", "btn-sm", "mx-1", "float-end"], "↑");
-   buttonMoveSetUp.onclick = function(){moveSetUp(currentCount)};
+   buttonMoveSetUp.onclick = function(){moveSetUp(setDiv)};
    let buttonMoveSetDown = createElem(setHeaderButtonDiv, null, "button", null, "button", ["btn", "btn-success", "btn-sm", "mx-1", "float-end"], "↓");
-   buttonMoveSetDown.onclick = function(){moveSetDown(currentCount)};
-   createElem(setDiv, null, "div", "tuneDiv" + currentCount, ["container", "my-2"], null, null);
-   let addTuneToSetButton = createElem(setDiv, null, "button", null, "button", ["btn", "btn-primary", "my-2"], "Add tune to set")
-   addTuneToSetButton.setAttribute("data-bs-toggle", "modal");
-   addTuneToSetButton.setAttribute("data-bs-target", "#addTuneSet" + currentCount + "Modal");
-   let modalDiv = createElem(setDiv, null, "div", "addTuneSet" + currentCount + "Modal", null, ["modal"], null);
+   buttonMoveSetDown.onclick = function(){moveSetDown(setDiv)};
+   let tunesDiv = createElem(setDiv, null, "div", "tunesDivOfSetDiv" + currentCount, ["container", "my-2"], null, null);
+   let modalDiv = createElem(setDiv, null, "div", "modalDivOfSetDiv" + currentCount, null, ["modal"], null);
    let modalDialogDiv = createElem(modalDiv, null, "div", null, null, ["modal-dialog"], null);
    let modalContentDiv = createElem(modalDialogDiv, null, "div", null, null, ["modal-content"], null);
    let modalHeaderDiv = createElem(modalContentDiv, null, "div", null, null, ["modal-header"], null);
    createElem(modalHeaderDiv, null, "h4", null, null, ["modal-title"], "Modal Heading");
-   let modalHeaderButton = createElem(modalHeaderDiv, null, "button", null, "button", ["btn-close"], null);
-   modalHeaderButton.setAttribute("data-bs-dismiss", "modal");
-   modalHeaderButton.onclick = function(){
-         document.getElementById("modalTuneSearchBar" + currentCount).value = "";
-      };
    let modalBodyDiv = createElem(modalContentDiv, null, "div", null, null, ["modal-body"], null);
-   let modalTuneSearchBar = createElem(modalBodyDiv, null, "input", "modalTuneSearchBar" + currentCount, null, ["form-control"], null);
+   let modalTuneSearchBar = createElem(modalBodyDiv, null, "input", null, null, ["form-control"], null);
    modalTuneSearchBar.setAttribute("list", "tuneDatalistDiv");
    modalTuneSearchBar.setAttribute("placeholder", "Type to search...");
    let modalFooterDiv = createElem(modalContentDiv, null, "div", null, null, ["modal-footer"], null);
    let modalFooterButton = createElem(modalFooterDiv, null, "button", null, "button", ["btn", "btn-success"], "Add selected tune");
    modalFooterButton.setAttribute("data-bs-dismiss", "modal");
    modalFooterButton.onclick = function(){
-         searchbar = document.getElementById("modalTuneSearchBar" + currentCount);
-         addTune(currentCount, searchbar.value);
-         searchbar.value = "";
+         addTune(setDiv, modalTuneSearchBar.value);
+         modalTuneSearchBar.value = "";
       };
+   let modalHeaderButton = createElem(modalHeaderDiv, null, "button", null, "button", ["btn-close"], null);
+   modalHeaderButton.setAttribute("data-bs-dismiss", "modal");
+   modalHeaderButton.onclick = function(){
+         modalTuneSearchBar.value = "";
+      };
+   let addTuneToSetButton = createElem(setDiv, null, "button", null, "button", ["btn", "btn-primary", "my-2"], "Add tune to set")
+   addTuneToSetButton.setAttribute("data-bs-toggle", "modal");
+   addTuneToSetButton.setAttribute("data-bs-target", "#" + modalDiv.id);
    setCounter++;
 }
 
-function removeSet(setId) {
-   console.log("Remove set button clicked: " + setId);
-   let setNode = document.getElementById("set" + setId + "Div");
-   setNode.parentNode.removeChild(setNode);
-   updateAbc();
+function removeSet(setDiv) {
+   console.log("Remove set button clicked");
+   setDiv.parentNode.removeChild(setDiv);
+   updateAbcTextArea();
 }
 
-function moveSetUp(setId) {
-   console.log("Move set up button clicked: " + setId);
-   let setNode = document.getElementById("set" + setId + "Div");
-   let index = getNodeIndex(setNode);
+function moveSetUp(setDiv) {
+   console.log("Move set up button clicked");
+   let index = getNodeIndex(setDiv);
    if (index > 0) {
       console.log("Moving set up");
-      let setNodeOther = setNode.parentNode.children[index - 1];
-      setNode.parentNode.insertBefore(setNode, setNodeOther);
+      let setNodeOther = setDiv.parentNode.children[index - 1];
+      setDiv.parentNode.insertBefore(setDiv, setNodeOther);
+      updateAbcTextArea();
    }
-   updateAbc();
 }
 
-function moveSetDown(setId) {
-   console.log("Move set down button clicked: " + setId);
-   let setNode = document.getElementById("set" + setId + "Div");
-   let index = getNodeIndex(setNode);
-   if (index < (setNode.parentNode.childElementCount - 2)) {
+function moveSetDown(setDiv) {
+   console.log("Move set down button clicked");
+   let index = getNodeIndex(setDiv);
+   if (index < (setsDiv.childElementCount - 1)) {
       console.log("Moving set down");
-      let setNodeOther = setNode.parentNode.children[index + 1];
-      setNodeOther.parentNode.insertBefore(setNodeOther, setNode);
+      let setNodeOther = setDiv.parentNode.children[index + 1];
+      setNodeOther.parentNode.insertBefore(setNodeOther, setDiv);
+      updateAbcTextArea();
    }
-   updateAbc();
 }
 
-function addTune(setId, tuneName) {
-   console.log("Add tune button clicked: " + setId + ", " + tuneName);
+function addTune(setDiv, tuneName) {
+   console.log("Add tune button clicked: " + tuneName);
    if (tuneExists(tuneName)) {
-      let tuneDivNode = document.getElementById("tuneDiv" + setId);
-      let newTuneDivNode = createElem(tuneDivNode, null, "div", "tune " + tuneCounter + ", " + tuneName, null, ["container", "p-4", "my-2", "text-bg-warning", "rounded-3", "tune"], null);
-      tuneCounter++;
+      let tunesDiv = document.getElementById("tunesDivOf" + capitalize(setDiv.id));
+      let newTuneDivNode = createElem(tunesDiv, null, "div", null, null, ["container", "p-4", "my-2", "text-bg-warning", "rounded-3", "tune"], null);
       let newTuneTitleNode = createElem(newTuneDivNode, null, "h4", null, null, null, tuneName);
       let newTuneCloseButton = createElem(newTuneTitleNode, null, "button", null, "button", ["btn", "btn-close", "btn-sm", "float-end"], null);
-      newTuneCloseButton.onclick = function(){removeTune(setId, newTuneDivNode);};
-      updateAbc();
+      newTuneCloseButton.onclick = function(){removeTune(newTuneDivNode);};
+      updateAbcTextArea();
    } else {
       if (tuneName.length > 0) {
          displayToast("The database contains no tune named: " + tuneName);
@@ -103,20 +99,22 @@ function addTune(setId, tuneName) {
    }
 }
 
-function removeTune(setId, tuneNode) {
-   console.log("Remove tune button clicked: " + setId + ", " + tuneNode);
+function removeTune(tuneNode) {
+   console.log("Remove tune button clicked: " + tuneNode);
    tuneNode.parentNode.removeChild(tuneNode);
-   updateAbc();
+   updateAbcTextArea();
 }
 
-function onAbcTextAreaChanged() {
+function updateAbcRender() {
    console.log("Abc change detected");
+   //Delete obsolete content
    while (warningsDiv.firstChild) {
       warningsDiv.firstChild.remove();
    }
    while (renderingDiv.firstChild) {
       renderingDiv.firstChild.remove();
    }
+   //Check if the ABC contains errors
    let parsedTunebook = ABCJS.parseOnly(abcTextArea.value);
    let hasWarnings = false;
    for (let i = 0, max = parsedTunebook.length; i < max; i++) {
@@ -134,6 +132,7 @@ function onAbcTextAreaChanged() {
       let noWarningDiv = createElem(warningsDiv, null, "div", null, null, ["my-2", "fw-bold"], null);
       noWarningDiv.innerText = "No error";
    }
+   //Render the ABC
    let tuneBook = new ABCJS.TuneBook(abcTextArea.value);
    console.log("Number of tunes: " + tuneBook.tunes.length);
    let renderElemIdArray = [];
@@ -152,14 +151,14 @@ function printRendering() {
    document.getElementById("print").innerHTML = "";
 }
 
-function updateAbc() {
+function updateAbcTextArea() {
    console.log("Updating the ABC text field...");
    let abcInputText = "";
-   let tuneDivs = document.getElementsByClassName("tune");
    let index = 1;
-   for (tuneDiv of tuneDivs) {
-      for (const childNode of tuneDiv.childNodes) {
-         let tuneTitle = childNode.innerText;
+   for (setDiv of setsDiv.children) {
+      let tunesDiv = document.getElementById("tunesDivOf" + capitalize(setDiv.id));
+      for (tuneDiv of tunesDiv.children) {
+         let tuneTitle = tuneDiv.children[0].innerText;
          let tuneData = getTuneData(tuneTitle);
          if (tuneData) {
             abcInputText += (
