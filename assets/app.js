@@ -19,20 +19,24 @@ function removeSet(tunesSet) {
    let index = setList.indexOf(tunesSet);
    if (index > -1) {
       setList.splice(index, 1);
+      console.log("Finished: Removing set");
       updateLeftPanel();
+   } else {
+      console.log("Finished: Removing set");
    }
-   console.log("Finished: Removing set");
 }
 
-function moveSetUp(tunesSet) {
+sfunction moveSetUp(tunesSet) {
    console.log("Started: Moving set up");
    let index = setList.indexOf(tunesSet);
    if (index > 0) {
       setList.splice(index, 1);
       setList.splice(index - 1, 0, tunesSet);
+      console.log("Finished: Moving set up");
       updateLeftPanel();
+   } else {
+      console.log("Finished: Moving set up");
    }
-   console.log("Finished: Moving set up");
 }
 
 function moveSetDown(tunesSet) {
@@ -41,9 +45,11 @@ function moveSetDown(tunesSet) {
    if (index > -1 && index < setList.length - 1) {
       setList.splice(index, 1);
       setList.splice(index + 1, 0, tunesSet);
+      console.log("Finished: Moving set down");
       updateLeftPanel();
+   } else {
+      console.log("Finished: Moving set down");
    }
-   console.log("Finished: Moving set down");
 }
 
 function updateLeftPanel() {
@@ -129,8 +135,8 @@ function updateAbcTextArea() {
       }
    }
    ABC_TEXT_AREA.value = abcInputText;
-   ABC_TEXT_AREA.dispatchEvent(new Event('input'));
    console.log("Finished: ABC text area update");
+   ABC_TEXT_AREA.dispatchEvent(new Event('input'));
 }
 
 function updateAbcRender() {
