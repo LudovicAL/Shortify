@@ -184,7 +184,7 @@ function updateAbcRender() {
          renderElemIdArray.push(renderElemId);
       }
       let renderOptions = { paddingleft: 0, paddingbottom: 5, paddingright: 0, paddingtop: 5, responsive: "resize", warnings_id: WARNINGS_DIV.id };
-      ABCJS.renderAbc(renderElemIdArray, ABC_TEXT_AREA.value, renderOptions);
+      ABCJS.renderAbc(renderElemIdArray, abcTextArea.value, renderOptions);
       console.log("Finished: ABC render update");
    }
 }
