@@ -114,9 +114,10 @@ function updateLeftPanel() {
 
 function updateAbcTextArea() {
    console.log("Started: ABC text area update");
-   let abcInputText = "";
-   let index = 1;
    for (tunesSet of setList) {
+      let index = 1;
+      let abcInputText = "";
+      let abcTextArea = createElem(ABC_TAB, null, "textarea", null, null, ["form-control"], null);
       for (tune of tunesSet.tuneList) {
          let tuneData = getTuneData(tune.tuneName);
          if (tuneData) {
@@ -133,50 +134,57 @@ function updateAbcTextArea() {
          }
          index++;
       }
+      abcTextArea.value = abcInputText;
    }
-   ABC_TEXT_AREA.value = abcInputText;
    console.log("Finished: ABC text area update");
-   ABC_TEXT_AREA.dispatchEvent(new Event('input'));
+   updateAbcRender();
 }
 
 function updateAbcRender() {
    console.log("Started: ABC render update");
    //Delete obsolete content
+   while (ABC_TAB.firstChild) {
+      ABC_TAB.firstChild.remove();
+   }
    while (WARNINGS_DIV.firstChild) {
       WARNINGS_DIV.firstChild.remove();
    }
    while (RENDERING_DIV.firstChild) {
       RENDERING_DIV.firstChild.remove();
    }
-   //Check if the ABC contains errors
-   let parsedTunebook = ABCJS.parseOnly(ABC_TEXT_AREA.value);
-   let hasWarnings = false;
-   for (let i = 0, max = parsedTunebook.length; i < max; i++) {
-      if (parsedTunebook[i].hasOwnProperty("warnings")) {
-         hasWarnings = true;
-         let tuneWarningDiv = createElem(WARNINGS_DIV, null, "div", null, null, ["border", "my-2", "fw-bold"], null);
-         tuneWarningDiv.innerText = "Tune #" + (i + 1) + " warning(s):";
-         for (warning of parsedTunebook[i].warnings) {
-            let warningDivElem = createElem(tuneWarningDiv, null, "div", null, null, ["ps-3", "fw-light", "text-danger"], null);
-            warningDivElem.innerHTML = warning;
+   for (abcTextArea of ABC_TAB.children) {
+      //Check if the ABC contains errors
+      /*
+      let parsedTunebook = ABCJS.parseOnly(ABC_TEXT_AREA.value);
+      let hasWarnings = false;
+      for (let i = 0, max = parsedTunebook.length; i < max; i++) {
+         if (parsedTunebook[i].hasOwnProperty("warnings")) {
+            hasWarnings = true;
+            let tuneWarningDiv = createElem(WARNINGS_DIV, null, "div", null, null, ["border", "my-2", "fw-bold"], null);
+            tuneWarningDiv.innerText = "Tune #" + (i + 1) + " warning(s):";
+            for (warning of parsedTunebook[i].warnings) {
+               let warningDivElem = createElem(tuneWarningDiv, null, "div", null, null, ["ps-3", "fw-light", "text-danger"], null);
+               warningDivElem.innerHTML = warning;
+            }
          }
       }
+      if (!hasWarnings) {
+         let noWarningDiv = createElem(WARNINGS_DIV, null, "div", null, null, ["my-2", "fw-bold"], null);
+         noWarningDiv.innerText = "No error";
+      }
+      */
+      //Render the ABC
+      let tuneBook = new ABCJS.TuneBook(abcTextArea.value);
+      let renderElemIdArray = [];
+      for (let i = 0, max = tuneBook.tunes.length; i < max; i++) {
+         let renderElemId = "renderElem" + i;
+         createElem(RENDERING_DIV, null, "div", renderElemId, null, null);
+         renderElemIdArray.push(renderElemId);
+      }
+      let renderOptions = { paddingleft: 0, paddingbottom: 5, paddingright: 0, paddingtop: 5, responsive: "resize", warnings_id: WARNINGS_DIV.id };
+      ABCJS.renderAbc(renderElemIdArray, ABC_TEXT_AREA.value, renderOptions);
+      console.log("Finished: ABC render update");
    }
-   if (!hasWarnings) {
-      let noWarningDiv = createElem(WARNINGS_DIV, null, "div", null, null, ["my-2", "fw-bold"], null);
-      noWarningDiv.innerText = "No error";
-   }
-   //Render the ABC
-   let tuneBook = new ABCJS.TuneBook(ABC_TEXT_AREA.value);
-   let renderElemIdArray = [];
-   for (let i = 0, max = tuneBook.tunes.length; i < max; i++) {
-      let renderElemId = "renderElem" + i;
-      createElem(RENDERING_DIV, null, "div", renderElemId, null, null);
-      renderElemIdArray.push(renderElemId);
-   }
-   let renderOptions = { paddingleft: 0, paddingbottom: 5, paddingright: 0, paddingtop: 5, responsive: "resize", warnings_id: WARNINGS_DIV.id };
-   let renderResult = ABCJS.renderAbc(renderElemIdArray, ABC_TEXT_AREA.value, renderOptions);
-   console.log("Finished: ABC render update");
 }
 
 function printRendering() {
