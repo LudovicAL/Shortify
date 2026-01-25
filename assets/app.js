@@ -113,6 +113,14 @@ function updateLeftPanel() {
 
 function updateAbcTextArea() {
    console.log("Started: ABC text area update");
+   //Delete obsolete content
+   while (ABC_TAB.firstChild) {
+      ABC_TAB.firstChild.remove();
+   }
+   while (WARNINGS_DIV.firstChild) {
+      WARNINGS_DIV.firstChild.remove();
+   }
+   //Insert new abc text areas
    for (tunesSet of setList) {
       let index = 1;
       let abcInputText = "";
@@ -143,12 +151,6 @@ function updateAbcTextArea() {
 function updateAbcRender() {
    console.log("Started: ABC render update");
    //Delete obsolete content
-   while (ABC_TAB.firstChild) {
-      ABC_TAB.firstChild.remove();
-   }
-   while (WARNINGS_DIV.firstChild) {
-      WARNINGS_DIV.firstChild.remove();
-   }
    while (RENDERING_DIV.firstChild) {
       RENDERING_DIV.firstChild.remove();
    }
