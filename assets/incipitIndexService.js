@@ -8,7 +8,7 @@ async function loadIncipitIndex() {
    console.log("Started: Incipit index retrieval");
    incipitIndex = await fetchJsonFile(INCIPIT_INDEX_URL, "incipitIndex", 28);
    for (item of incipitIndex) {
-      let tuneDataOption = createElem(tuneDatalistDiv, null, "option", null, null, null, null);
+      let tuneDataOption = createElem(TUNE_DATA_LIST_DIV, null, "option", null, null, null, null);
       tuneDataOption.setAttribute("value", item.file_name);
    }
    console.log("Finished: Incipit index retrieval");
@@ -24,7 +24,7 @@ requestIncipitIndex()
       }
       incipitIndex = data;
       for (item of data) {
-         let tuneDataOption = createElem(tuneDatalistDiv, null, "option", null, null, null, null);
+         let tuneDataOption = createElem(TUNE_DATA_LIST_DIV, null, "option", null, null, null, null);
          tuneDataOption.setAttribute("value", item.file_name);
       }
       console.log("Incipit index retrieved!");

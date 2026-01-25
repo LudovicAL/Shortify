@@ -63,8 +63,7 @@ function displayToast(message) {
 }
 
 function tuneExists(tuneName) {
-   let tuneDatalistDiv = document.getElementById("tuneDatalistDiv");
-   for (const childNode of tuneDatalistDiv.childNodes) {
+   for (const childNode of TUNE_DATA_LIST_DIV.childNodes) {
       if (childNode.value === tuneName) {
          return true;
       }

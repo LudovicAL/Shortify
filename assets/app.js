@@ -70,7 +70,7 @@ function updateLeftPanel() {
       createElem(modalHeaderDiv, null, "h4", null, null, ["modal-title", "text-black"], "Search for a tune");
       let modalBodyDiv = createElem(modalContentDiv, null, "div", null, null, ["modal-body"], null);
       let modalTuneSearchBar = createElem(modalBodyDiv, null, "input", null, null, ["form-control"], null);
-      modalTuneSearchBar.setAttribute("list", "tuneDatalistDiv");
+      modalTuneSearchBar.setAttribute("list", TUNE_DATA_LIST_DIV.id);
       modalTuneSearchBar.setAttribute("placeholder", "Type here to search...");
       let modalFooterDiv = createElem(modalContentDiv, null, "div", null, null, ["modal-footer"], null);
       let modalFooterButton = createElem(modalFooterDiv, null, "button", null, "button", ["btn", "btn-success"], "Add selected tune");
