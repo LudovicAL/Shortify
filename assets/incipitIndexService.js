@@ -6,7 +6,11 @@ window.onload = async () => {
 
 async function loadIncipitIndex() {
    console.log("Started: Incipit index retrieval");
-   tuneIndex = await fetchJsonFile(INCIPIT_INDEX_URL, "incipitIndex", 28);
+   incipitIndex = await fetchJsonFile(INCIPIT_INDEX_URL, "incipitIndex", 28);
+   for (item of incipitIndex) {
+      let tuneDataOption = createElem(tuneDatalistDiv, null, "option", null, null, null, null);
+      tuneDataOption.setAttribute("value", item.file_name);
+   }
    console.log("Finished: Incipit index retrieval");
 }
 
