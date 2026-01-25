@@ -4,7 +4,7 @@ window.onload = async () => {
    await loadIncipitIndex();
 };
 
-async function loadTuneIndex() {
+async function loadIncipitIndex() {
    console.log("Started: Incipit index retrieval");
    tuneIndex = await fetchJsonFile("https://raw.githubusercontent.com/LudovicAL/Shortify/refs/heads/main/incipitIndex.json", "incipitIndex", 28);
    console.log("Finished: Incipit index retrieval");
