@@ -1,15 +1,4 @@
 window.onload = function initEditor() {
-   /*
-   console.log("Loading ABCJS Editor");
-   var abcEditor = new ABCJS.Editor("abcTextArea", {
-      canvas_id: "renderingDiv",
-      warnings_id:"warningsDiv",
-      print: true,
-      onchange: this.updatePrintableDiv,
-      responsive: "resize"
-   });
-   console.log("ABCJS Editor Loaded");
-   */
    addSet();
 }
 
@@ -17,6 +6,7 @@ var setCounter = 1;
 var tuneCounter = 1;
 var abcTextArea = document.getElementById("abcTextArea");
 var renderingDiv = document.getElementById("renderingDiv");
+var warningsDiv = document.getElementById("warningsDiv");
 abcTextArea.addEventListener('input', onAbcTextAreaChanged);
 
 function addSet() {
@@ -121,15 +111,39 @@ function removeTune(setId, tuneNode) {
 
 function onAbcTextAreaChanged() {
    console.log("Abc change detected");
+   while (warningsDiv.firstChild) {
+      warningsDiv.firstChild.remove();
+   }
    while (renderingDiv.firstChild) {
-      renderingDiv.firstChild.remove()
+      renderingDiv.firstChild.remove();
+   }
+   let parsedTunebook = ABCJS.parseOnly(abcTextArea.value);
+   let hasWarnings = false;
+   for (let i = 0, max = parsedTunebook.length; i < max; i++) {
+      if (parsedTunebook[i].hasOwnProperty("warnings")) {
+         hasWarnings = true;
+         let tuneWarningDiv = createElem(warningsDiv, null, "div", null, null, ["border", "my-2", "fw-bold"], null);
+         tuneWarningDiv.innerText = "Tune #" + (i + 1) + " warning(s):";
+         for (warning of parsedTunebook[i].warnings) {
+            let warningDivElem = createElem(tuneWarningDiv, null, "div", null, null, ["ps-3", "fw-light", "text-danger"], null);
+            warningDivElem.innerHTML = warning;
+         }
+      }
+   }
+   if (!hasWarnings) {
+      let noWarningDiv = createElem(warningsDiv, null, "div", null, null, ["my-2", "fw-bold"], null);
+      noWarningDiv.innerText = "No error";
    }
    let tuneBook = new ABCJS.TuneBook(abcTextArea.value);
    console.log("Number of tunes: " + tuneBook.tunes.length);
+   let renderElemIdArray = [];
    for (let i = 0, max = tuneBook.tunes.length; i < max; i++) {
-      let renderElem = createElem(renderingDiv, null, "div", "tuneRendering" + i, null, null);
-      ABCJS.renderAbc(["tuneRendering" + i], tuneBook.tunes[i].abc);
+      let renderElemId = "renderElem" + i;
+      createElem(renderingDiv, null, "div", renderElemId, null, null);
+      renderElemIdArray.push(renderElemId);
    }
+   let renderOptions = { paddingleft: 0, paddingbottom: 5, paddingright: 0, paddingtop: 5, responsive: "resize", warnings_id: "warningsDiv" };
+   let renderResult = ABCJS.renderAbc(renderElemIdArray, abcTextArea.value, renderOptions);
 }
 
 function printRendering() {
@@ -148,13 +162,13 @@ function updateAbc() {
          let tuneTitle = childNode.innerText;
          let tuneData = getTuneData(tuneTitle);
          if (tuneData) {
-            abcInputText = abcInputText.concat(
+            abcInputText += (
                "X:" + index + "\n"
                + "R:" + tuneData.file_name + "\n"
                + "M:" + tuneData.time_signature + "\n"
                + "L:" + tuneData.default_note_length + "\n"
                + "K:" + tuneData.key + "\n"
-               + tuneData.incipit_start + "\n"
+               + tuneData.incipit_start + "\n\n"
             );
          } else {
             displayToast("An error occured while updating the ABC text input field with data for: " + tuneTitle);
