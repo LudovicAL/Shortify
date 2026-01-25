@@ -84,7 +84,8 @@ function updateLeftPanel() {
       let modalFooterButton = createElem(modalFooterDiv, null, "button", null, "button", ["btn", "btn-success"], "Add selected tune");
       modalFooterButton.setAttribute("data-bs-dismiss", "modal");
       modalFooterButton.onclick = function(){
-            currentTunesSet.addTune(modalTuneSearchBar.value);
+            addTuneToSet(currentTunesSet, modalTuneSearchBar.value);
+            //currentTunesSet.addTune(modalTuneSearchBar.value);
             modalTuneSearchBar.value = "";
             updateLeftPanel();
          };
@@ -109,6 +110,10 @@ function updateLeftPanel() {
    }
    console.log("Finished: Left panel update");
    updateAbcTextArea();
+}
+
+function addTuneToSet(tunesSet, tuneName) {
+   tunesSet.addTune(tuneName);
 }
 
 function updateAbcTextArea() {
