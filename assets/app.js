@@ -150,7 +150,7 @@ function updateAbcTextArea() {
          index++;
       }
       abcTextArea.value = abcInputText;
-      abcTextArea.rows(Math.max(abcInputText.split(/\r\n|\r|\n/).length, 2).toString())
+      abcTextArea.rows = Math.max(abcInputText.split(/\r\n|\r|\n/).length, 2).toString();
    }
    console.log("Finished: ABC text area update");
    updateAbcRender();
