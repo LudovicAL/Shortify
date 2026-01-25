@@ -51,6 +51,10 @@ function moveSetDown(tunesSet) {
    }
 }
 
+function addTuneToSet(tunesSet, tuneName) {
+   tunesSet.addTune(tuneName);
+}
+
 function updateLeftPanel() {
    console.log("Started: Left panel update");
    while (SETS_DIV.firstChild) {
@@ -65,11 +69,17 @@ function updateLeftPanel() {
       setTitle.value = tunesSet.setName;
       let setHeaderButtonDiv = createElem(setHeader, null, "div", null, null, ["w-50"], null);
       let buttonRemoveSet = createElem(setHeaderButtonDiv, null, "button", null, "button", ["btn", "btn-danger", "btn-sm", "mx-1", "float-end"], "Remove set");
-      buttonRemoveSet.onclick = function(){removeSet(currentTunesSet)};
+      buttonRemoveSet.onclick = function(){
+         removeSet(currentTunesSet);
+      };
       let buttonMoveSetUp = createElem(setHeaderButtonDiv, null, "button", null, "button", ["btn", "btn-success", "btn-sm", "mx-1", "float-end"], "↑");
-      buttonMoveSetUp.onclick = function(){moveSetUp(currentTunesSet)};
+      buttonMoveSetUp.onclick = function(){
+         moveSetUp(currentTunesSet);
+      };
       let buttonMoveSetDown = createElem(setHeaderButtonDiv, null, "button", null, "button", ["btn", "btn-success", "btn-sm", "mx-1", "float-end"], "↓");
-      buttonMoveSetDown.onclick = function(){moveSetDown(currentTunesSet)};
+      buttonMoveSetDown.onclick = function(){
+         moveSetDown(currentTunesSet);
+      };
       let tunesDiv = createElem(setDiv, null, "div", "tunesDivOfSetDiv" + setCounter, ["container", "my-2"], null, null);
       let modalDiv = createElem(setDiv, null, "div", "modalDivOfSetDiv" + setCounter, null, ["modal"], null);
       let modalDialogDiv = createElem(modalDiv, null, "div", null, null, ["modal-dialog"], null);
@@ -84,16 +94,16 @@ function updateLeftPanel() {
       let modalFooterButton = createElem(modalFooterDiv, null, "button", null, "button", ["btn", "btn-success"], "Add selected tune");
       modalFooterButton.setAttribute("data-bs-dismiss", "modal");
       modalFooterButton.onclick = function(){
-            addTuneToSet(currentTunesSet, modalTuneSearchBar.value);
-            //currentTunesSet.addTune(modalTuneSearchBar.value);
-            modalTuneSearchBar.value = "";
-            updateLeftPanel();
-         };
+         addTuneToSet(currentTunesSet, modalTuneSearchBar.value);
+         //currentTunesSet.addTune(modalTuneSearchBar.value);
+         modalTuneSearchBar.value = "";
+         updateLeftPanel();
+      };
       let modalHeaderButton = createElem(modalHeaderDiv, null, "button", null, "button", ["btn-close"], null);
       modalHeaderButton.setAttribute("data-bs-dismiss", "modal");
       modalHeaderButton.onclick = function(){
-            modalTuneSearchBar.value = "";
-         };
+         modalTuneSearchBar.value = "";
+      };
       let addTuneToSetButton = createElem(setDiv, null, "button", null, "button", ["btn", "btn-primary", "my-2"], "Add tune to set")
       addTuneToSetButton.setAttribute("data-bs-toggle", "modal");
       addTuneToSetButton.setAttribute("data-bs-target", "#" + modalDiv.id);
@@ -110,10 +120,6 @@ function updateLeftPanel() {
    }
    console.log("Finished: Left panel update");
    updateAbcTextArea();
-}
-
-function addTuneToSet(tunesSet, tuneName) {
-   tunesSet.addTune(tuneName);
 }
 
 function updateAbcTextArea() {
