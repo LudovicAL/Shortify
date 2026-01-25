@@ -87,7 +87,7 @@ function updateLeftPanel() {
          let newTuneDivNode = createElem(tunesDiv, null, "div", null, null, ["container", "p-4", "my-2", "text-bg-warning", "rounded-3", "tune"], null);
          let newTuneTitleNode = createElem(newTuneDivNode, null, "h4", null, null, null, tune.tuneName);
          let newTuneCloseButton = createElem(newTuneTitleNode, null, "button", null, "button", ["btn", "btn-close", "btn-sm", "float-end"], null);
-         newTuneCloseButton.onclick = function(){removeTune(newTuneDivNode);};
+         newTuneCloseButton.onclick = function(){currentTunesSet.removeTune(tune);};
       }
    }
    updateAbcTextArea();
