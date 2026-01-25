@@ -133,8 +133,8 @@ function updateAbcTextArea() {
       let abcInputText = "";
       let abcTextArea = createElem(ABC_TAB, null, "textarea", null, null, ["form-control", "my-1"], null);
       abcTextArea.addEventListener('input', updateAbcRender);
-      for (tune of tunesSet.tuneList) {
-         let tuneData = getTuneData(tune.tuneName);
+      for (let i = 0, max = tunesSet.tuneList.length; i < max; i++) {
+         let tuneData = getTuneData(tunesSet.tuneList[i].tuneName);
          if (tuneData) {
             abcInputText += (
                "X:" + index + "\n"
@@ -142,10 +142,13 @@ function updateAbcTextArea() {
                + "M:" + tuneData.time_signature + "\n"
                + "L:" + tuneData.default_note_length + "\n"
                + "K:" + tuneData.key + "\n"
-               + tuneData.incipit_start + "\n\n"
+               + tuneData.incipit_start
             );
+            if (i < (max - 1)) {
+               abcInputText += "\n";
+            }
          } else {
-            displayToast("An error occured while updating the ABC text input field with data for: " + tuneTitle);
+            displayToast("An error occured while updating the ABC text input field with data for: " + tunesSet.tuneList[i].tuneName);
          }
          index++;
       }
