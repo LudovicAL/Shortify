@@ -6,40 +6,48 @@ ABC_TEXT_AREA.addEventListener('input', updateAbcRender);
 addSet();
 
 function addSet() {
+   console.log("Started: Adding set");
    let setName = "Set " + setCounter;
    setList.push(new TunesSet(setName));
    setCounter++;
+   console.log("Finished: Adding set");
    updateLeftPanel();
 }
 
 function removeSet(tunesSet) {
+   console.log("Started: Removing set");
    let index = setList.indexOf(tunesSet);
    if (index > -1) {
       setList.splice(index, 1);
       updateLeftPanel();
-   }  
+   }
+   console.log("Finished: Removing set");
 }
 
 function moveSetUp(tunesSet) {
+   console.log("Started: Moving set up");
    let index = setList.indexOf(tunesSet);
    if (index > 0) {
       setList.splice(index, 1);
       setList.splice(index - 1, 0, tunesSet);
       updateLeftPanel();
    }
+   console.log("Finished: Moving set up");
 }
 
 function moveSetDown(tunesSet) {
+   console.log("Started: Moving set down");
    let index = setList.indexOf(tunesSet);
    if (index > -1 && index < setList.length - 1) {
       setList.splice(index, 1);
       setList.splice(index + 1, 0, tunesSet);
       updateLeftPanel();
    }
+   console.log("Finished: Moving set down");
 }
 
 function updateLeftPanel() {
-   //Remove obsolete sets
+   console.log("Started: Left panel update");
    while (SETS_DIV.firstChild) {
       SETS_DIV.firstChild.remove();
    }
@@ -94,11 +102,12 @@ function updateLeftPanel() {
          };
       }
    }
+   console.log("Finished: Left panel update");
    updateAbcTextArea();
 }
 
 function updateAbcTextArea() {
-   console.log("Updating the ABC text field...");
+   console.log("Started: ABC text area update");
    let abcInputText = "";
    let index = 1;
    for (tunesSet of setList) {
@@ -121,11 +130,11 @@ function updateAbcTextArea() {
    }
    ABC_TEXT_AREA.value = abcInputText;
    ABC_TEXT_AREA.dispatchEvent(new Event('input'));
-   console.log("ABC text field updated");
+   console.log("Finished: ABC text area update");
 }
 
 function updateAbcRender() {
-   console.log("Abc change detected");
+   console.log("Started: ABC render update");
    //Delete obsolete content
    while (WARNINGS_DIV.firstChild) {
       WARNINGS_DIV.firstChild.remove();
@@ -153,7 +162,6 @@ function updateAbcRender() {
    }
    //Render the ABC
    let tuneBook = new ABCJS.TuneBook(ABC_TEXT_AREA.value);
-   console.log("Number of tunes: " + tuneBook.tunes.length);
    let renderElemIdArray = [];
    for (let i = 0, max = tuneBook.tunes.length; i < max; i++) {
       let renderElemId = "renderElem" + i;
@@ -162,10 +170,13 @@ function updateAbcRender() {
    }
    let renderOptions = { paddingleft: 0, paddingbottom: 5, paddingright: 0, paddingtop: 5, responsive: "resize", warnings_id: WARNINGS_DIV.id };
    let renderResult = ABCJS.renderAbc(renderElemIdArray, ABC_TEXT_AREA.value, renderOptions);
+   console.log("Finished: ABC render update");
 }
 
 function printRendering() {
+   console.log("Started: Printing");
    PRINT_DIV.innerHTML = RENDERING_DIV.innerHTML;
    window.print();
    PRINT_DIV.innerHTML = "";
+   console.log("Finished: Printing");
 }

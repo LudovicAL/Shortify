@@ -14,6 +14,7 @@ class TunesSet {
    }
   
    addTune(tuneName) {
+      console.log("Started: Adding tune");
       if (!tuneName) {
          displayToast("No tune selected");         
          return;
@@ -24,29 +25,22 @@ class TunesSet {
          return;
       }
       this.tuneList.push(new Tune(tuneName));
+      console.log("Finished: Adding tune");
    }
 
    removeTune(tune) {
+      console.log("Started: Removing tune");
       let index = this.tuneList.indexOf(tune);
       if (index > -1) {
          this.tuneList.splice(index, 1);
       }
+      console.log("Finished: Removing tune");
    }
 }
 
 
-function getNodeIndex(node) {
-    var index = 0;
-    while (node = node.previousSibling) {
-        if (node.nodeType != 3 || !/^\s*$/.test(node.data)) {
-            index++;
-        }
-    }
-    return index;
-}
-
 function displayToast(message) {
-   console.log("Displaying toast: " + message);
+   console.log("Started: Displaying toast");
    let toastDiv = document.getElementById('toastDiv');
    let toast = createElem(toastDiv, null, "div", "myId", null, ["toast"], null);
    toast.setAttribute("role", "alert");
@@ -60,6 +54,7 @@ function displayToast(message) {
    toastButton.setAttribute("aria-label", "Close");
    let toastBody = createElem(toast, null, "div", null, null, ["toast-body"], message);
    (new bootstrap.Toast(toast)).show();
+   console.log("Finished: Displaying toast");
 }
 
 function tuneExists(tuneName) {
@@ -100,10 +95,6 @@ function createElem(elemParent, elemParentNextElem, elemRoot, elemId, elemType, 
       elemParent.insertBefore(elem, elemParentNextElem);
    }
    return elem;
-}
-
-function convertTextToUrl(content) {
-   return content.replace(" ", "%20").replace(" | ", "%3B").replace(";", "%3B").replace("#", "%23");
 }
 
 /**
