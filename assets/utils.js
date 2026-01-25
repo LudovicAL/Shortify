@@ -1,3 +1,40 @@
+var tuneId = 0;
+
+class Tune {
+   constructor(tuneName) {
+      this.tuneId = tuneId++;
+      this.tuneName = tuneName;
+   }
+}
+
+class TunesSet {
+   constructor(setName) {
+      this.setName = setName;
+      this.tuneList = [];
+   }
+  
+   addTune(tuneName) {
+      if (!tuneName) {
+         displayToast("No tune selected");         
+         return;
+      }
+      let tuneData = getTuneData(tuneName);
+      if (!tuneData) {
+         displayToast("The database contains no tune named: " + tuneName);
+         return;
+      }
+      this.tuneList.push(new Tune(tuneName));
+   }
+
+   removeTune(tune) {
+      let index = this.tunelist.indexOf(tune);
+      if (index > -1) {
+         this.tunelist.splice(index, 1);
+      }
+   }
+}
+
+
 function getNodeIndex(node) {
     var index = 0;
     while (node = node.previousSibling) {
@@ -68,4 +105,36 @@ function createElem(elemParent, elemParentNextElem, elemRoot, elemId, elemType, 
 
 function convertTextToUrl(content) {
    return content.replace(" ", "%20").replace(" | ", "%3B").replace(";", "%3B").replace("#", "%23");
+}
+
+/**
+ * Fetches a JSON file.
+ * If the JSON file is already in the cache and is not too old, it is retrived from there.
+ * Otherwise it is retrieved from the server.
+ *
+ * @param {String} url The URL from which to retrieve the data.
+ * @param {String} storeName The key for the data in the cache.
+ * @param {int} storeLifeSpanInDays The life expectancy of the data, in days.
+ * @return The fetched JSON file.
+ */
+async function fetchJsonFile(url, storeName, storeLifeSpanInDays) {
+   jsonFile = await window.idbKV.get(storeName);
+   if (typeof jsonFile === 'undefined') {
+      console.log("   No file named " + storeName + " was cached, requesting download");
+      jsonFile = await fetch(url).then((response) => response.json());
+      await window.idbKV.set(storeName, jsonFile);
+      await window.idbKV.set(storeName + "Date", new Date());
+   } else {
+      console.log("   Found cached file named " + storeName);
+      let fileCacheDate = await window.idbKV.get(storeName + "Date");
+      if (typeof fileCacheDate === 'undefined' || ((Date.now() - fileCacheDate) >= (storeLifeSpanInDays * MILLISECONDS_PER_DAY))) {
+         console.log("   Cached " + storeName + " date is undefined or too old. The file will be renewed.");
+         jsonFile = await fetch(url).then((response) => response.json());
+         await window.idbKV.set(storeName, jsonFile);
+         await window.idbKV.set(storeName + "Date", new Date());
+      } else {
+         console.log("   Cached " + storeName + " date is recent enough. No action to take.");
+      }
+   }
+   return jsonFile;
 }

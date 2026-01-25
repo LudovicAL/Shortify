@@ -1,5 +1,16 @@
 var incipitIndex;
 
+window.onload = async () => {
+   await loadIncipitIndex();
+};
+
+async function loadTuneIndex() {
+   console.log("Started: Incipit index retrieval");
+   tuneIndex = await fetchJsonFile("https://raw.githubusercontent.com/LudovicAL/Shortify/refs/heads/main/incipitIndex.json", "incipitIndex", 28);
+   console.log("Finished: Incipit index retrieval");
+}
+
+/*
 requestIncipitIndex()
    .then(response => response.json())
    .then(data => {
@@ -19,6 +30,7 @@ function requestIncipitIndex() {
    console.log("Sending http request to get incipit index...");
    return Promise.resolve(fetch("https://raw.githubusercontent.com/LudovicAL/Shortify/refs/heads/main/incipitIndex.json"));
 }
+*/
 
 function getTuneData(tuneName) {
    for (item of incipitIndex) {
