@@ -1,7 +1,6 @@
 var setList = [];
 var setCounter = 1;
 var tuneCounter = 1;
-ABC_TEXT_AREA.addEventListener('input', updateAbcRender);
 
 addSet();
 
@@ -118,6 +117,7 @@ function updateAbcTextArea() {
       let index = 1;
       let abcInputText = "";
       let abcTextArea = createElem(ABC_TAB, null, "textarea", null, null, ["form-control"], null);
+      abcTextArea.addEventListener('input', updateAbcRender);
       for (tune of tunesSet.tuneList) {
          let tuneData = getTuneData(tune.tuneName);
          if (tuneData) {
