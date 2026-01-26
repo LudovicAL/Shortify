@@ -124,9 +124,6 @@ function updateAbcTextArea() {
    while (ABC_TAB.firstChild) {
       ABC_TAB.firstChild.remove();
    }
-   while (WARNINGS_DIV.firstChild) {
-      WARNINGS_DIV.firstChild.remove();
-   }
    //Insert new abc text areas
    for (tunesSet of setList) {
       let index = 1;
@@ -163,6 +160,11 @@ function updateAbcTextArea() {
 
 function updateWarnings() {
    console.log("Started: Warnings update");
+   //Delete obsolete content
+   while (WARNINGS_DIV.firstChild) {
+      WARNINGS_DIV.firstChild.remove();
+   }
+   //Insert new warnings
    for (abcTabChild of ABC_TAB.children) {
       let abcTextArea = abcTabChild.getElementsByTagName("textarea");
       if (abcTextArea[0].value) {
@@ -195,7 +197,7 @@ function updateAbcRender() {
    while (RENDERING_DIV.firstChild) {
       RENDERING_DIV.firstChild.remove();
    }
-   //Render the new ABCs
+   //Insert new renderings
    for (abcTextArea of ABC_TAB.children) {
       if (abcTextArea.value) {
          let tuneBook = new ABCJS.TuneBook(abcTextArea.value);
