@@ -64,7 +64,7 @@ function updateLeftPanel() {
       setTitle.setAttribute("placeholder", "Set title");
       setTitle.value = tunesSet.setName;
       let setHeaderButtonDiv = createElem(setHeader, null, "div", null, null, ["w-50"], null);
-      let buttonRemoveSet = createElem(setHeaderButtonDiv, null, "button", null, "button", ["btn", "btn-danger", "btn-sm", "mx-1", "float-end"], "Remove set");
+      let buttonRemoveSet = createElem(setHeaderButtonDiv, null, "button", null, "button", ["btn", "btn-danger", "btn-sm", "mx-1", "float-end"], "Supprimer la collection");
       buttonRemoveSet.onclick = function(){
          removeSet(currentTunesSet);
       };
@@ -81,13 +81,13 @@ function updateLeftPanel() {
       let modalDialogDiv = createElem(modalDiv, null, "div", null, null, ["modal-dialog"], null);
       let modalContentDiv = createElem(modalDialogDiv, null, "div", null, null, ["modal-content"], null);
       let modalHeaderDiv = createElem(modalContentDiv, null, "div", null, null, ["modal-header"], null);
-      createElem(modalHeaderDiv, null, "h4", null, null, ["modal-title", "text-black"], "Search for a tune");
+      createElem(modalHeaderDiv, null, "h4", null, null, ["modal-title", "text-black"], "Chercher une pièce");
       let modalBodyDiv = createElem(modalContentDiv, null, "div", null, null, ["modal-body"], null);
       let modalTuneSearchBar = createElem(modalBodyDiv, null, "input", null, null, ["form-control"], null);
       modalTuneSearchBar.setAttribute("list", TUNE_DATA_LIST_DIV.id);
-      modalTuneSearchBar.setAttribute("placeholder", "Type here to search...");
+      modalTuneSearchBar.setAttribute("placeholder", "Écrivez un titre ici...");
       let modalFooterDiv = createElem(modalContentDiv, null, "div", null, null, ["modal-footer"], null);
-      let modalFooterButton = createElem(modalFooterDiv, null, "button", null, "button", ["btn", "btn-success"], "Add selected tune");
+      let modalFooterButton = createElem(modalFooterDiv, null, "button", null, "button", ["btn", "btn-success"], "Ajouter la pièce");
       modalFooterButton.setAttribute("data-bs-dismiss", "modal");
       modalFooterButton.onclick = function(){
          addTuneToSet(currentTunesSet, modalTuneSearchBar.value);
@@ -100,7 +100,7 @@ function updateLeftPanel() {
       modalHeaderButton.onclick = function(){
          modalTuneSearchBar.value = "";
       };
-      let addTuneToSetButton = createElem(setDiv, null, "button", null, "button", ["btn", "btn-primary", "my-2"], "Add tune to set")
+      let addTuneToSetButton = createElem(setDiv, null, "button", null, "button", ["btn", "btn-primary", "my-2"], "Ajouter une pièce")
       addTuneToSetButton.setAttribute("data-bs-toggle", "modal");
       addTuneToSetButton.setAttribute("data-bs-target", "#" + modalDiv.id);
       for (tune of tunesSet.tuneList) {
@@ -147,7 +147,7 @@ function updateAbcTextArea() {
                abcInputText += "\n\n";
             }
          } else {
-            displayToast("An error occured while updating the ABC text input field with data for: " + tunesSet.tuneList[i].tuneName);
+            displayToast("Une erreur est survenue qui empêche de générer une rendu pour la pièce: " + tunesSet.tuneList[i].tuneName);
          }
          index++;
       }
@@ -185,7 +185,7 @@ function updateWarnings() {
    }
    if (!hasWarnings) {
       let noWarningDiv = createElem(WARNINGS_DIV, null, "div", null, null, ["my-2", "fw-bold"], null);
-      noWarningDiv.innerText = "No error";
+      noWarningDiv.innerText = "Aucune erreur";
    }
    console.log("Finished: Warnings update");
    updateAbcRender();

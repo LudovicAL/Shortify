@@ -14,7 +14,7 @@ class TunesSet {
    constructor() {
       let currentSetId = setId;
       this.setId = currentSetId;
-      this.setName = "Set " + this.setId;
+      this.setName = "Collection " + this.setId;
       setId++;
       this.tuneList = [];
    }
@@ -22,12 +22,12 @@ class TunesSet {
    addTune(tuneName) {
       console.log("Started: Adding tune");
       if (!tuneName) {
-         displayToast("No tune selected");         
+         displayToast("Aucune pièce sélectionnée");         
          return;
       }
       let tuneData = getTuneData(tuneName);
       if (!tuneData) {
-         displayToast("The database contains no tune named: " + tuneName);
+         displayToast("Le catalogue ne contient aucune pièce nommée: " + tuneName);
          return;
       }
       this.tuneList.push(new Tune(tuneName));
@@ -53,8 +53,8 @@ function displayToast(message) {
    toast.setAttribute("aria-live", "assertive");
    toast.setAttribute("aria-atomic", "true");
    let toastHeader = createElem(toast, null, "div", null, null, ["toast-header", "text-bg-warning"], null);
-   createElem(toastHeader, null, "strong", null, null, ["me-auto"], "Tune picker");
-   createElem(toastHeader, null, "small", null, null, ["text-muted"], "Error");
+   createElem(toastHeader, null, "strong", null, null, ["me-auto"], "Message");
+   createElem(toastHeader, null, "small", null, null, ["text-muted"], "Erreur");
    let toastButton = createElem(toastHeader, null, "button", null, "button", ["btn-close"], null);
    toastButton.setAttribute("data-bs-dismiss", "toast");
    toastButton.setAttribute("aria-label", "Close");
