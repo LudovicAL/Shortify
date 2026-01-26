@@ -152,6 +152,55 @@
          <div id="leftColumn" class="mt-2">
             <div id="setsDiv"></div>
             <button id="addSetButton" type="button" class="btn btn-success" onclick="addSet();">Ajouter une collection</button>
+            <div class="mt-4">
+               <h4>Options</h4>
+               <div class="form-check form-switch my-2">
+                  <input class="form-check-input" type="checkbox" role="switch" id="switchRenderSetNames" checked>
+                  <label class="form-check-label" for="switchRenderSetNames">Afficher les noms des collections</label>
+               </div>
+               <div class="form-check form-switch my-2">
+                  <input class="form-check-input" type="checkbox" role="switch" id="switchRenderTuneNames" checked>
+                  <label class="form-check-label" for="switchRenderTuneNames">Afficher les noms des pièces</label>
+               </div>
+               <div class="form-check form-switch my-2">
+                  <input class="form-check-input" type="checkbox" role="switch" id="switchBorderSets" checked>
+                  <label class="form-check-label" for="switchBorderSets">Encadrer les collections</label>
+               </div>
+               <div class="form-check form-switch my-2">
+                  <input class="form-check-input" type="checkbox" role="switch" id="switchBorderTunes" checked>
+                  <label class="form-check-label" for="switchBorderTunes">Encadrer les pièces</label>
+               </div>
+               <div class="form-check form-switch my-2">
+                  <input class="form-check-input" type="checkbox" role="switch" id="switchAlignTunesInCollection" checked>
+                  <label class="form-check-label" for="switchAlignTunesInCollection">Aligner les pièces d'une collection</label>
+               </div>
+               <div class="form-check form-switch my-2">
+                  <input class="form-check-input" type="checkbox" role="switch" id="switchRenderTuneEndings" checked>
+                  <label class="form-check-label" for="switchRenderTuneEndings">Afficher les fins des pièces</label>
+               </div>
+               <div class="form-check form-switch my-2">
+                  <input class="form-check-input" type="checkbox" role="switch" id="switchRenderKey" checked>
+                  <label class="form-check-label" for="switchRenderKey">Afficher les clés des pièces</label>
+               </div>
+               <div class="form-check form-switch my-2">
+                  <input class="form-check-input" type="checkbox" role="switch" id="switchRenderBeginEnd" checked>
+                  <label class="form-check-label" for="switchRenderBeginEnd">Afficher les indication de début et de fin des pièces</label>
+               </div>
+               <div class="my-2">
+                  <input type="radio" class="btn-check" name="option-number-of-bars-begin" id="radio-1-bar-begin" autocomplete="off">
+                  <label class="btn btn-outline-primary" for="radio-1-bar-begin">1</label>
+                  <input type="radio" class="btn-check" name="option-number-of-bars-begin" id="radio-2-bars-begin" autocomplete="off" checked>
+                  <label class="btn btn-outline-primary" for="radio-2-bars-begin">2</label>
+                  Nombre de mesures à afficher pour le début des pièces
+               </div>
+               <div class="my-2">
+                  <input type="radio" class="btn-check" name="option-number-of-bars-end" id="radio-1-bar-end" autocomplete="off">
+                  <label class="btn btn-outline-primary" for="radio-1-bar-end">1</label>
+                  <input type="radio" class="btn-check" name="option-number-of-bars-end" id="radio-2-bars-end" autocomplete="off" checked>
+                  <label class="btn btn-outline-primary" for="radio-2-bars-end">2</label>
+                  Nombre de mesures à afficher pour la fin des pièces
+               </div>
+            </div>
          </div>
          <div class="flex-fill mx-2">
             <ul class="nav nav-tabs nav-justified">

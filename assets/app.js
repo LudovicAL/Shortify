@@ -129,6 +129,7 @@ function editTitle(tunesSet, setTitleInputText, setTitleEditImage) {
    console.log("Started: Editing title");
    if (setTitleInputText.disabled) {
       setTitleInputText.disabled = false;
+      setTitleInputText.focus();
       setTitleEditImage.setAttribute("src", "icons/save.svg");
       setTitleEditImage.setAttribute("alt", "Sauvegarder");
    } else {
