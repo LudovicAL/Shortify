@@ -198,13 +198,13 @@ function updateAbcRender() {
       RENDERING_DIV.firstChild.remove();
    }
    //Insert new renderings
-   for (abcTabChild of ABC_TAB.children) {
-      let abcTextArea = abcTabChild.getElementsByTagName("textarea");
+   for (let i = 0, maxI = ABC_TAB.children.length; i < maxI; i++) {
+      let abcTextArea = ABC_TAB.children[i].getElementsByTagName("textarea");
       if (abcTextArea[0].value) {
          let tuneBook = new ABCJS.TuneBook(abcTextArea[0].value);
          let renderElemIdArray = [];
-         for (let i = 0, max = tuneBook.tunes.length; i < max; i++) {
-            let renderElemId = "renderElem" + i;
+         for (let j = 0, maxJ = tuneBook.tunes.length; j < maxJ; j++) {
+            let renderElemId = "renderForSet" + i + "Tune" + j;
             createElem(RENDERING_DIV, null, "div", renderElemId, null, null);
             renderElemIdArray.push(renderElemId);
          }
