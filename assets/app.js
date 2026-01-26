@@ -60,7 +60,7 @@ function updateLeftPanel() {
       setTitleInputText.setAttribute("placeholder", "Set title");
       setTitleInputText.value = tunesSet.setName;
       setTitleInputText.disabled = true;
-      let setTitleEditButton = createElem(setHeader, null, "button", null, "button", ["btn", "border-0", "p-0"], null);
+      let setTitleEditButton = createElem(setHeader, null, "button", null, "button", ["btn", "border-0", "p-0", "mx-1"], null);
       let setTitleEditImage = createElem(setTitleEditButton, null, "img", null, null, ["img-fluid", "h-75"], null);
       setTitleEditImage.setAttribute("src", "icons/edit.svg");
       setTitleEditImage.setAttribute("alt", "Éditer");
@@ -125,13 +125,13 @@ function editTitle(tunesSet, setTitleInputText, setTitleEditImage) {
    console.log("Started: Editing title");
    if (setTitleInputText.disabled) {
       setTitleInputText.disabled = false;
-      setTitleEditImage.setAttribute("src", "icons/edit.svg");
-      setTitleEditImage.setAttribute("alt", "Éditer");
+      setTitleEditImage.setAttribute("src", "icons/save.svg");
+      setTitleEditImage.setAttribute("alt", "Sauvegarder");
    } else {
       setTitleInputText.disabled = true;
       tunesSet.setname = setTitleInputText.value;
-      setTitleEditImage.setAttribute("src", "icons/save.svg");
-      setTitleEditImage.setAttribute("alt", "Sauvegarder");
+      setTitleEditImage.setAttribute("src", "icons/edit.svg");
+      setTitleEditImage.setAttribute("alt", "Éditer");
    }
    console.log("Finished: Editing title");
 }
