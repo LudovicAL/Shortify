@@ -156,22 +156,24 @@ function updateAbcTextArea() {
       }
       abcTextArea.value = abcInputText;
       abcTextArea.rows = Math.max(abcInputText.split(/\r\n|\r|\n/).length, 2).toString();
-      let parsedTunebook = ABCJS.parseOnly(abcInputText.value);
-      let hasWarnings = false;
-      for (let i = 0, max = parsedTunebook.length; i < max; i++) {
-         if (parsedTunebook[i].hasOwnProperty("warnings")) {
-            hasWarnings = true;
-            let tuneWarningDiv = createElem(WARNINGS_DIV, null, "div", null, null, ["border", "my-2", "fw-bold"], null);
-            tuneWarningDiv.innerText = tunesSet.name + ", Tune #" + (i + 1) + ", warning(s):";
-            for (warning of parsedTunebook[i].warnings) {
-               let warningDivElem = createElem(tuneWarningDiv, null, "div", null, null, ["ps-3", "fw-light", "text-danger"], null);
-               warningDivElem.innerHTML = warning;
+      if (abcInputText) {
+         let parsedTunebook = ABCJS.parseOnly(abcInputText);
+         let hasWarnings = false;
+         for (let i = 0, max = parsedTunebook.length; i < max; i++) {
+            if (parsedTunebook[i].hasOwnProperty("warnings")) {
+               hasWarnings = true;
+               let tuneWarningDiv = createElem(WARNINGS_DIV, null, "div", null, null, ["border", "my-2", "fw-bold"], null);
+               tuneWarningDiv.innerText = tunesSet.name + ", Tune #" + (i + 1) + ", warning(s):";
+               for (warning of parsedTunebook[i].warnings) {
+                  let warningDivElem = createElem(tuneWarningDiv, null, "div", null, null, ["ps-3", "fw-light", "text-danger"], null);
+                  warningDivElem.innerHTML = warning;
+               }
             }
          }
-      }
-      if (!hasWarnings) {
-         let noWarningDiv = createElem(WARNINGS_DIV, null, "div", null, null, ["my-2", "fw-bold"], null);
-         noWarningDiv.innerText = "No error";
+         if (!hasWarnings) {
+            let noWarningDiv = createElem(WARNINGS_DIV, null, "div", null, null, ["my-2", "fw-bold"], null);
+            noWarningDiv.innerText = "No error";
+         }
       }
    }
    console.log("Finished: ABC text area update");
