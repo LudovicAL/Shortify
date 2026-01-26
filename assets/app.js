@@ -132,6 +132,7 @@ function editTitle(tunesSet, setTitleInputText, setTitleEditImage) {
       tunesSet.setName = setTitleInputText.value;
       setTitleEditImage.setAttribute("src", "icons/edit.svg");
       setTitleEditImage.setAttribute("alt", "Éditer");
+      updateAbcTextArea();
    }
    console.log("Finished: Editing title");
 }
