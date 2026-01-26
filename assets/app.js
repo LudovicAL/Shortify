@@ -165,27 +165,27 @@ function updateWarnings() {
       WARNINGS_DIV.firstChild.remove();
    }
    //Insert new warnings
+   let hasWarnings = false;
    for (abcTabChild of ABC_TAB.children) {
       let abcTextArea = abcTabChild.getElementsByTagName("textarea");
       if (abcTextArea[0].value) {
          let parsedTunebook = ABCJS.parseOnly(abcTextArea[0].value);
-         let hasWarnings = false;
          for (let i = 0, max = parsedTunebook.length; i < max; i++) {
             if (parsedTunebook[i].hasOwnProperty("warnings")) {
                hasWarnings = true;
                let tuneWarningDiv = createElem(WARNINGS_DIV, null, "div", null, null, ["border", "my-2", "fw-bold"], null);
-               tuneWarningDiv.innerText = tunesSet.name + ", Tune #" + (i + 1) + ", warning(s):";
+               tuneWarningDiv.innerText = abcTabChild[0].value + ", Tune #" + (i + 1) + ", warning(s):";
                for (warning of parsedTunebook[i].warnings) {
                   let warningDivElem = createElem(tuneWarningDiv, null, "div", null, null, ["ps-3", "fw-light", "text-danger"], null);
                   warningDivElem.innerHTML = warning;
                }
             }
          }
-         if (!hasWarnings) {
-            let noWarningDiv = createElem(WARNINGS_DIV, null, "div", null, null, ["my-2", "fw-bold"], null);
-            noWarningDiv.innerText = "No error";
-         }
       }
+   }
+   if (!hasWarnings) {
+      let noWarningDiv = createElem(WARNINGS_DIV, null, "div", null, null, ["my-2", "fw-bold"], null);
+      noWarningDiv.innerText = "No error";
    }
    console.log("Finished: Warnings update");
    updateAbcRender();
