@@ -121,14 +121,14 @@ function updateLeftPanel() {
 function updateAbcTextArea() {
    console.log("Started: ABC text area update");
    //Delete obsolete content
-   while (ABC_TAB.firstChild) {
-      ABC_TAB.firstChild.remove();
+   while (ABC_DIV.firstChild) {
+      ABC_DIV.firstChild.remove();
    }
    //Insert new abc text areas
    for (tunesSet of setList) {
       let index = 1;
       let abcInputText = "";
-      let abcDiv = createElem(ABC_TAB, null, "div", null, null, ["my-1"], null);
+      let abcDiv = createElem(ABC_DIV, null, "div", null, null, ["my-1"], null);
       createElem(abcDiv, null, "div", null, null, ["fw-bold"], tunesSet.setName)
       let abcTextArea = createElem(abcDiv, null, "textarea", null, null, ["form-control"], null);
       abcTextArea.addEventListener('input', updateWarnings);
@@ -166,7 +166,7 @@ function updateWarnings() {
    }
    //Insert new warnings
    let hasWarnings = false;
-   for (abcTabChild of ABC_TAB.children) {
+   for (abcTabChild of ABC_DIV.children) {
       let abcTextArea = abcTabChild.getElementsByTagName("textarea");
       if (abcTextArea[0].value) {
          let parsedTunebook = ABCJS.parseOnly(abcTextArea[0].value);
@@ -198,11 +198,11 @@ function updateAbcRender() {
       RENDERING_DIV.firstChild.remove();
    }
    //Insert new renderings
-   for (let i = 0, maxI = ABC_TAB.children.length; i < maxI; i++) {
-      let abcTextArea = ABC_TAB.children[i].getElementsByTagName("textarea");
+   for (let i = 0, maxI = ABC_DIV.children.length; i < maxI; i++) {
+      let abcTextArea = ABC_DIV.children[i].getElementsByTagName("textarea");
       if (abcTextArea[0].value) {
          let tuneRenderDiv = createElem(RENDERING_DIV, null, "div", null, null, ["border"], null);
-         createElem(tuneRenderDiv, null, "div", null, null, ["fw-bold"], ABC_TAB.children[i].children[0].innerText);
+         createElem(tuneRenderDiv, null, "div", null, null, ["fw-bold"], ABC_DIV.children[i].children[0].innerText);
          let tuneBook = new ABCJS.TuneBook(abcTextArea[0].value);
          let renderElemIdArray = [];
          for (let j = 0, maxJ = tuneBook.tunes.length; j < maxJ; j++) {
