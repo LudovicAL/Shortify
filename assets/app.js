@@ -129,7 +129,7 @@ function editTitle(tunesSet, setTitleInputText, setTitleEditImage) {
       setTitleEditImage.setAttribute("alt", "Sauvegarder");
    } else {
       setTitleInputText.disabled = true;
-      tunesSet.setname = setTitleInputText.value;
+      tunesSet.setName = setTitleInputText.value;
       setTitleEditImage.setAttribute("src", "icons/edit.svg");
       setTitleEditImage.setAttribute("alt", "Éditer");
    }
