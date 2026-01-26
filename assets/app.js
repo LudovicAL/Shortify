@@ -174,7 +174,7 @@ function updateWarnings() {
             if (parsedTunebook[i].hasOwnProperty("warnings")) {
                hasWarnings = true;
                let tuneWarningDiv = createElem(WARNINGS_DIV, null, "div", null, null, ["border", "my-2", "fw-bold"], null);
-               tuneWarningDiv.innerText = abcTabChild.children[0].innerText + ", Tune " + (i + 1) + ", warning(s):";
+               tuneWarningDiv.innerText = abcTabChild.children[0].innerText + ", Tune " + (i + 1) + ", Warning(s):";
                for (warning of parsedTunebook[i].warnings) {
                   let warningDivElem = createElem(tuneWarningDiv, null, "div", null, null, ["ps-3", "fw-light", "text-danger"], null);
                   warningDivElem.innerHTML = warning;
@@ -199,13 +199,15 @@ function updateAbcRender() {
    }
    //Insert new renderings
    for (let i = 0, maxI = ABC_TAB.children.length; i < maxI; i++) {
+      let tuneRenderDiv = createElem(RENDERING_DIV, null, "div", null, null, ["border"], null);
+      createElem(tuneRenderDiv, null, "div", null, ["fw-bold"], abcTabChild.children[0].innerText);
       let abcTextArea = ABC_TAB.children[i].getElementsByTagName("textarea");
       if (abcTextArea[0].value) {
          let tuneBook = new ABCJS.TuneBook(abcTextArea[0].value);
          let renderElemIdArray = [];
          for (let j = 0, maxJ = tuneBook.tunes.length; j < maxJ; j++) {
             let renderElemId = "renderForSet" + i + "Tune" + j;
-            createElem(RENDERING_DIV, null, "div", renderElemId, null, null);
+            createElem(tuneRenderDiv, null, "div", renderElemId, null, null);
             renderElemIdArray.push(renderElemId);
          }
          let renderOptions = { paddingleft: 0, paddingbottom: 5, paddingright: 0, paddingtop: 5, responsive: "resize", warnings_id: WARNINGS_DIV.id };
