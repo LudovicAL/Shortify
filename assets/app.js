@@ -174,7 +174,7 @@ function updateWarnings() {
             if (parsedTunebook[i].hasOwnProperty("warnings")) {
                hasWarnings = true;
                let tuneWarningDiv = createElem(WARNINGS_DIV, null, "div", null, null, ["border", "my-2", "fw-bold"], null);
-               tuneWarningDiv.innerText = abcTabChild[0].value + ", Tune #" + (i + 1) + ", warning(s):";
+               tuneWarningDiv.innerText = abcTabChild.children[0].innerText + ", Tune #" + (i + 1) + ", warning(s):";
                for (warning of parsedTunebook[i].warnings) {
                   let warningDivElem = createElem(tuneWarningDiv, null, "div", null, null, ["ps-3", "fw-light", "text-danger"], null);
                   warningDivElem.innerHTML = warning;
