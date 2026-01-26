@@ -64,7 +64,7 @@ function updateLeftPanel() {
       let setTitleEditImage = createElem(setTitleEditButton, null, "img", null, null, ["img-fluid", "h-75"], null);
       setTitleEditImage.setAttribute("src", "icons/edit.svg");
       setTitleEditImage.setAttribute("alt", "Éditer");
-      setTitleEditButton.onClick = function(){
+      setTitleEditButton.onclick = function(){
          editTitle(currentTunesSet, setTitleInputText, setTitleEditImage);
       };
       let setHeaderButtonDiv = createElem(setHeader, null, "div", null, null, ["w-50", "d-flex", "justify-content-end"], null);
