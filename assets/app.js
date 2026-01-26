@@ -47,10 +47,6 @@ function moveSetDown(tunesSet) {
    }
 }
 
-function addTuneToSet(tunesSet, tuneName) {
-   tunesSet.addTune(tuneName);
-}
-
 function updateLeftPanel() {
    console.log("Started: Left panel update");
    while (SETS_DIV.firstChild) {
@@ -59,22 +55,30 @@ function updateLeftPanel() {
    for (tunesSet of setList) {
       let currentTunesSet = tunesSet;
       let setDiv = createElem(SETS_DIV, null, "div", "setDiv" + tunesSet.setId, null, ["container", "p-3", "my-2", "text-bg-secondary", "rounded-3"], null);
-      let setHeader = createElem(setDiv, null, "div", null, null, ["my-2", "d-flex", "flex-row"], null);
-      let setTitle = createElem(setHeader, null, "input", null, "text", ["form-control", "w-50"], null)
-      setTitle.setAttribute("placeholder", "Set title");
-      setTitle.value = tunesSet.setName;
-      let setHeaderButtonDiv = createElem(setHeader, null, "div", null, null, ["w-50"], null);
-      let buttonRemoveSet = createElem(setHeaderButtonDiv, null, "button", null, "button", ["btn", "btn-danger", "btn-sm", "mx-1", "float-end"], "Supprimer la collection");
-      buttonRemoveSet.onclick = function(){
-         removeSet(currentTunesSet);
+      let setHeader = createElem(setDiv, null, "div", null, null, ["my-2", "d-flex"], null);
+      let setTitleInputText = createElem(setHeader, null, "input", "Set" + tunesSet.setId + "Title", "text", ["form-control", "w-50", "py-0"], null)
+      setTitleInputText.setAttribute("placeholder", "Set title");
+      setTitleInputText.value = tunesSet.setName;
+      setTitleInputText.disabled = true;
+      let setTitleEditButton = createElem(setHeader, null, "button", null, "button", ["btn", "border-0", "p-0"], null);
+      let setTitleEditImage = createElem(setTitleEditButton, null, "img", null, null, ["img-fluid", "h-75"], null);
+      setTitleEditImage.setAttribute("src", "icons/edit.svg");
+      setTitleEditImage.setAttribute("alt", "Éditer");
+      setTitleEditButton.onClick = function(){
+         editTitle(currentTunesSet, setTitleInputText, setTitleEditImage);
       };
-      let buttonMoveSetUp = createElem(setHeaderButtonDiv, null, "button", null, "button", ["btn", "btn-success", "btn-sm", "mx-1", "float-end"], "↑");
+      let setHeaderButtonDiv = createElem(setHeader, null, "div", null, null, ["w-50", "d-flex", "justify-content-end"], null);
+      let buttonMoveSetDown = createElem(setHeaderButtonDiv, null, "button", null, "button", ["btn", "btn-success", "btn-sm", "mx-1"], "↓");
+      buttonMoveSetDown.onclick = function(){
+         moveSetDown(currentTunesSet);
+      };
+      let buttonMoveSetUp = createElem(setHeaderButtonDiv, null, "button", null, "button", ["btn", "btn-success", "btn-sm", "mx-1"], "↑");
       buttonMoveSetUp.onclick = function(){
          moveSetUp(currentTunesSet);
       };
-      let buttonMoveSetDown = createElem(setHeaderButtonDiv, null, "button", null, "button", ["btn", "btn-success", "btn-sm", "mx-1", "float-end"], "↓");
-      buttonMoveSetDown.onclick = function(){
-         moveSetDown(currentTunesSet);
+      let buttonRemoveSet = createElem(setHeaderButtonDiv, null, "button", null, "button", ["btn", "btn-danger", "btn-sm", "mx-1"], "Supprimer la collection");
+      buttonRemoveSet.onclick = function(){
+         removeSet(currentTunesSet);
       };
       let tunesDiv = createElem(setDiv, null, "div", "tunesDivOfSetDiv" + tunesSet.setId, ["container", "my-2"], null, null);
       let modalDiv = createElem(setDiv, null, "div", "modalDivOfSetDiv" + tunesSet.setId, null, ["modal"], null);
@@ -90,8 +94,7 @@ function updateLeftPanel() {
       let modalFooterButton = createElem(modalFooterDiv, null, "button", null, "button", ["btn", "btn-success"], "Ajouter la pièce");
       modalFooterButton.setAttribute("data-bs-dismiss", "modal");
       modalFooterButton.onclick = function(){
-         addTuneToSet(currentTunesSet, modalTuneSearchBar.value);
-         //currentTunesSet.addTune(modalTuneSearchBar.value);
+         currentTunesSet.addTune(modalTuneSearchBar.value);
          modalTuneSearchBar.value = "";
          updateLeftPanel();
       };
@@ -116,6 +119,21 @@ function updateLeftPanel() {
    }
    console.log("Finished: Left panel update");
    updateAbcTextArea();
+}
+
+function editTitle(tunesSet, setTitleInputText, setTitleEditImage) {
+   console.log("Started: Editing title");
+   if (setTitleInputText.disabled) {
+      setTitleInputText.disabled = false;
+      setTitleEditImage.setAttribute("src", "icons/edit.svg");
+      setTitleEditImage.setAttribute("alt", "Éditer");
+   } else {
+      setTitleInputText.disabled = true;
+      tunesSet.setname = setTitleInputText.value;
+      setTitleEditImage.setAttribute("src", "icons/save.svg");
+      setTitleEditImage.setAttribute("alt", "Sauvegarder");
+   }
+   console.log("Finished: Editing title");
 }
 
 function updateAbcTextArea() {
