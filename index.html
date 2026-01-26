@@ -24,7 +24,7 @@
 </head>
 
 <body>
-   <div class="container m-2 d-print-none">
+   <div class="m-3 d-print-none">
       <button type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#aboutCollapsed">À propos</button>
       <div class="d-flex justify-content-center">
          <img src="icons/title.png" alt="Shortify" class="img-fluid" style="height:100px">
@@ -147,37 +147,34 @@
                </div>
             </div>
          </div>
-         
       </div>
-      <div class="container-fluid">
-         <div class="row">
-            <div id="leftColumn" class="col-sm mt-2">
-               <div id="setsDiv"></div>
-               <button id="addSetButton" type="button" class="btn btn-success" onclick="addSet();">Ajouter une collection</button>
-            </div>
-            <div class="col-lg">
-               <ul class="nav nav-tabs nav-justified">
-                  <li class="nav-item">
-                     <a class="nav-link" data-bs-toggle="tab" href="#abcTab">ABC</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link active" data-bs-toggle="tab" href="#renderingTab">Rendu</a>
-                  </li>
-               </ul>
-               <div class="tab-content">
-                  <div class="tab-pane container py-2 border" id="abcTab">
-                     <div id="abcDiv"></div>
-                     <div class="text-end">
-                        <a href="https://abcnotation.com/" target="_blank">Documentation sur la notation ABC</a>
-                     </div>
-                  </div>
-                  <div class="tab-pane container active pt-2 pb-5 border" id="renderingTab">
-                     <div id="renderingDiv"></div>
-                     <button type="button" class="btn btn-success float-end mt-1" onclick="printRendering();">Imprimer</button>
+      <div class="d-flex justify-content-between align-items-start flex-wrap flex-fill">
+         <div id="leftColumn" class="mt-2">
+            <div id="setsDiv"></div>
+            <button id="addSetButton" type="button" class="btn btn-success" onclick="addSet();">Ajouter une collection</button>
+         </div>
+         <div class="flex-fill mx-2">
+            <ul class="nav nav-tabs nav-justified">
+               <li class="nav-item">
+                  <a class="nav-link" data-bs-toggle="tab" href="#abcTab">ABC</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link active" data-bs-toggle="tab" href="#renderingTab">Rendu</a>
+               </li>
+            </ul>
+            <div class="tab-content">
+               <div class="tab-pane container py-2 border" id="abcTab">
+                  <div id="abcDiv"></div>
+                  <div class="text-end">
+                     <a href="https://abcnotation.com/" target="_blank">Documentation sur la notation ABC</a>
                   </div>
                </div>
-               <div id="warningsDiv"></div>
+               <div class="tab-pane container active pt-2 pb-5 border" id="renderingTab">
+                  <div id="renderingDiv"></div>
+                  <button type="button" class="btn btn-success float-end mt-1" onclick="printRendering();">Imprimer</button>
+               </div>
             </div>
+            <div id="warningsDiv"></div>
          </div>
       </div>
    </div>
