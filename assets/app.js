@@ -200,8 +200,8 @@ function updateAbcRender() {
    //Insert new renderings
    for (abcTabChild of ABC_TAB.children) {
       let abcTextArea = abcTabChild.getElementsByTagName("textarea");
-      if (abcTextArea.value) {
-         let tuneBook = new ABCJS.TuneBook(abcTextArea.value);
+      if (abcTextArea[0].value) {
+         let tuneBook = new ABCJS.TuneBook(abcTextArea[0].value);
          let renderElemIdArray = [];
          for (let i = 0, max = tuneBook.tunes.length; i < max; i++) {
             let renderElemId = "renderElem" + i;
@@ -209,7 +209,7 @@ function updateAbcRender() {
             renderElemIdArray.push(renderElemId);
          }
          let renderOptions = { paddingleft: 0, paddingbottom: 5, paddingright: 0, paddingtop: 5, responsive: "resize", warnings_id: WARNINGS_DIV.id };
-         ABCJS.renderAbc(renderElemIdArray, abcTextArea.value, renderOptions);
+         ABCJS.renderAbc(renderElemIdArray, abcTextArea[0].value, renderOptions);
       }
    }
    console.log("Finished: ABC render update");
