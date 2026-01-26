@@ -164,8 +164,8 @@ function updateAbcTextArea() {
 function updateWarnings() {
    console.log("Started: Warnings update");
    for (abcTextArea of ABC_TAB.children) {
-      if (abcInputText) {
-         let parsedTunebook = ABCJS.parseOnly(abcInputText);
+      if (abcTextArea.value) {
+         let parsedTunebook = ABCJS.parseOnly(abcTextArea.value);
          let hasWarnings = false;
          for (let i = 0, max = parsedTunebook.length; i < max; i++) {
             if (parsedTunebook[i].hasOwnProperty("warnings")) {
