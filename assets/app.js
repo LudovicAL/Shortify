@@ -108,8 +108,12 @@ function updateLeftPanel() {
       addTuneToSetButton.setAttribute("data-bs-target", "#" + modalDiv.id);
       for (tune of tunesSet.tuneList) {
          let currentTune = tune;
-         let newTuneDivNode = createElem(tunesDiv, null, "div", null, null, ["container", "p-4", "my-2", "text-bg-warning", "rounded-3"], null);
-         let newTuneTitleNode = createElem(newTuneDivNode, null, "h4", null, null, null, currentTune.tuneName);
+         let newTuneDivNode = createElem(tunesDiv, null, "div", null, null, ["p-2", "my-1", "text-bg-warning", "rounded-3"], null);
+         let tuneTitleArray = currentTune.tuneName.split(";");
+         let newTuneTitleNode = createElem(newTuneDivNode, null, "div", null, ["fw-bold"], null, tuneTitleArray[0]);
+         for (let i = 1, max = tuneTitleArray.length; i < max; i++) {
+            createElem(newTuneDivNode, null, "div", null, null, null, tuneTitleArray[i]);
+         }
          let newTuneCloseButton = createElem(newTuneTitleNode, null, "button", null, "button", ["btn", "btn-close", "btn-sm", "float-end"], null);
          newTuneCloseButton.onclick = function(){
             currentTunesSet.removeTune(currentTune);
