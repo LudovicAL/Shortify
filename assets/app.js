@@ -200,7 +200,7 @@ function updateAbcRender() {
    //Insert new renderings
    for (let i = 0, maxI = ABC_TAB.children.length; i < maxI; i++) {
       let tuneRenderDiv = createElem(RENDERING_DIV, null, "div", null, null, ["border"], null);
-      createElem(tuneRenderDiv, null, "div", null, ["fw-bold"], abcTabChild.children[0].innerText);
+      createElem(tuneRenderDiv, null, "div", null, ["fw-bold"], ABC_TAB.children[i].children[0].innerText);
       let abcTextArea = ABC_TAB.children[i].getElementsByTagName("textarea");
       if (abcTextArea[0].value) {
          let tuneBook = new ABCJS.TuneBook(abcTextArea[0].value);
