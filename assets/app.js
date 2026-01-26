@@ -160,7 +160,7 @@ function updateAbcTextArea() {
          if (tuneData) {
             abcInputText += (
                "X:" + index + "\n"
-               + "R:" + tuneData.file_name + "\n"
+               + "R:" + tuneData.file_name.split(";")[0] + "\n"
                + "M:" + tuneData.time_signature + "\n"
                + "L:" + tuneData.default_note_length + "\n"
                + "K:" + tuneData.key + "\n"
