@@ -153,15 +153,14 @@ function updateAbcTextArea() {
       let index = 1;
       let abcInputText = "";
       let abcDiv = createElem(ABC_DIV, null, "div", null, null, ["my-1"], null);
-      createElem(abcDiv, null, "div", null, null, ["fw-bold"], tunesSet.setName)
+      createElem(abcDiv, null, "div", null, null, ["fw-bold"], SWITCH_RENDER_TUNE_NAMES.checked ? tunesSet.setName : null)
       let abcTextArea = createElem(abcDiv, null, "textarea", null, null, ["form-control"], null);
       abcTextArea.addEventListener('input', updateWarnings);
       for (let i = 0, max = tunesSet.tuneList.length; i < max; i++) {
          let tuneData = getTuneData(tunesSet.tuneList[i].tuneName);
          if (tuneData) {
-            abcInputText += SWITCH_RENDER_SET_NAMES.checked ? "X:" + index + "\n" : "";   
-            abcInputText += SWITCH_RENDER_TUNE_NAMES.checked ? "R:" + tunesSet.setName + "\n" : "";
-            abcInputText += "R:" + tuneData.file_name.split(";")[0] + "\n";
+            abcInputText += "X:" + index + "\n";   
+            abcInputText += SWITCH_RENDER_TUNE_NAMES.checked ? "R:" + tuneData.file_name.split(";")[0] + "\n" : "";
             abcInputText += "M:" + tuneData.time_signature + "\n"
                + "L:" + tuneData.default_note_length + "\n"
                + "K:" + tuneData.key + "\n"
@@ -253,3 +252,9 @@ SWITCH_RENDER_SET_NAMES.addEventListener('change', updateAbcTextArea);
 SWITCH_RENDER_TUNE_NAMES.addEventListener('change', updateAbcTextArea);
 SWITCH_BORDER_SETS.addEventListener('change', updateAbcTextArea);
 SWITCH_BORDER_TUNES.addEventListener('change', updateAbcTextArea);
+//SWITCH_ALIGN_TUNES_IN_COLLECTION.addEventListener('change', updateAbcTextArea);
+//SWITCH_RENDER_TUNE_ENDINGS.addEventListener('change', updateAbcTextArea);
+//SWITCH_RENDER_KEY.addEventListener('change', updateAbcTextArea);
+//SWITCH_RENDER_BEGIN_END.addEventListener('change', updateAbcTextArea);
+//RADIO_BAR_BEGIN.addEventListener('change', updateAbcTextArea);
+//RADIO_BAR_END.addEventListener('change', updateAbcTextArea);
