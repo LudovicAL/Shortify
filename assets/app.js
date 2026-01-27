@@ -223,14 +223,13 @@ function updateAbcRender() {
    for (let i = 0, maxI = ABC_DIV.children.length; i < maxI; i++) {
       let abcTextArea = ABC_DIV.children[i].getElementsByTagName("textarea");
       if (abcTextArea[0].value) {
-         
          let tuneRenderDiv = createElem(RENDERING_DIV, null, "div", null, null, SWITCH_BORDER_SETS.checked ? ["border"] : null, null);
          createElem(tuneRenderDiv, null, "div", null, null, ["fw-bold"], ABC_DIV.children[i].children[0].innerText);
          let tuneBook = new ABCJS.TuneBook(abcTextArea[0].value);
          let renderElemIdArray = [];
          for (let j = 0, maxJ = tuneBook.tunes.length; j < maxJ; j++) {
             let renderElemId = "renderForSet" + i + "Tune" + j;
-            createElem(tuneRenderDiv, null, "div", renderElemId, SWITCH_BORDER_TUNES.checked ? ["border"] : null, null);
+            createElem(tuneRenderDiv, null, "div", renderElemId, null, SWITCH_BORDER_TUNES.checked ? ["border"] : null, null);
             renderElemIdArray.push(renderElemId);
          }
          let renderOptions = { paddingleft: 0, paddingbottom: 5, paddingright: 0, paddingtop: 5, responsive: "resize", warnings_id: WARNINGS_DIV.id };
