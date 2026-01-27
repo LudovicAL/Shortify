@@ -153,7 +153,7 @@ function updateAbcTextArea() {
       let index = 1;
       let abcInputText = "";
       let abcDiv = createElem(ABC_DIV, null, "div", null, null, ["my-1"], null);
-      createElem(abcDiv, null, "div", null, null, ["fw-bold"], SWITCH_RENDER_TUNE_NAMES.checked ? tunesSet.setName : null)
+      createElem(abcDiv, null, "div", null, null, ["fw-bold"], tunesSet.setName)
       let abcTextArea = createElem(abcDiv, null, "textarea", null, null, ["form-control"], null);
       abcTextArea.addEventListener('input', updateWarnings);
       for (let i = 0, max = tunesSet.tuneList.length; i < max; i++) {
@@ -224,7 +224,9 @@ function updateAbcRender() {
       let abcTextArea = ABC_DIV.children[i].getElementsByTagName("textarea");
       if (abcTextArea[0].value) {
          let tuneRenderDiv = createElem(RENDERING_DIV, null, "div", null, null, SWITCH_BORDER_SETS.checked ? ["border"] : null, null);
-         createElem(tuneRenderDiv, null, "div", null, null, ["fw-bold"], ABC_DIV.children[i].children[0].innerText);
+         if (SWITCH_RENDER_SET_NAMES.checked) {
+            createElem(tuneRenderDiv, null, "div", null, null, ["fw-bold"], ABC_DIV.children[i].children[0].innerText);
+         }
          let tuneBook = new ABCJS.TuneBook(abcTextArea[0].value);
          let renderElemIdArray = [];
          for (let j = 0, maxJ = tuneBook.tunes.length; j < maxJ; j++) {
