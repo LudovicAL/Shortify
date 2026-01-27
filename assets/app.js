@@ -159,19 +159,26 @@ function updateAbcTextArea() {
       for (let i = 0, max = tunesSet.tuneList.length; i < max; i++) {
          let tuneData = getTuneData(tunesSet.tuneList[i].tuneName);
          if (tuneData) {
-            abcInputText += "X:" + index + "\n";   
+            abcInputText += "X:" + (index++) + "\n";
             abcInputText += SWITCH_RENDER_TUNE_NAMES.checked ? "R:" + tuneData.file_name.split(";")[0] + "\n" : "";
             abcInputText += "M:" + tuneData.time_signature + "\n"
                + "L:" + tuneData.default_note_length + "\n"
                + "K:" + tuneData.key + "\n"
                + tuneData.incipit_start;
+            if (SWITCH_RENDER_TUNE_ENDINGS.checked) {
+               abcInputText += "\n\n"
+                  + "X:" + (index++) + "\n";
+                  + "M:" + tuneData.time_signature + "\n"
+                  + "L:" + tuneData.default_note_length + "\n"
+                  + "K:" + tuneData.key + "\n"
+                  + tuneData.incipit_end;
+            }
             if (i < (max - 1)) {
                abcInputText += "\n\n";
             }
          } else {
-            displayToast("Une erreur est survenue qui empêche de générer une rendu pour la pièce: " + tunesSet.tuneList[i].tuneName);
+            displayToast("Une erreur est survenue qui empêche de générer la notation ABC pour la pièce: " + tunesSet.tuneList[i].tuneName);
          }
-         index++;
       }
       abcTextArea.value = abcInputText;
       abcTextArea.rows = Math.max(abcInputText.split(/\r\n|\r|\n/).length, 2).toString();
@@ -223,7 +230,7 @@ function updateAbcRender() {
    for (let i = 0, maxI = ABC_DIV.children.length; i < maxI; i++) {
       let abcTextArea = ABC_DIV.children[i].getElementsByTagName("textarea");
       if (abcTextArea[0].value) {
-         let tuneRenderDiv = createElem(RENDERING_DIV, null, "div", null, null, SWITCH_BORDER_SETS.checked ? ["border"] : null, null);
+         let tuneRenderDiv = createElem(RENDERING_DIV, null, "div", null, null, SWITCH_BORDER_SETS.checked ? ["border", "border-black", "my-1"] : null, null);
          if (SWITCH_RENDER_SET_NAMES.checked) {
             createElem(tuneRenderDiv, null, "div", null, null, ["fw-bold"], ABC_DIV.children[i].children[0].innerText);
          }
@@ -231,7 +238,7 @@ function updateAbcRender() {
          let renderElemIdArray = [];
          for (let j = 0, maxJ = tuneBook.tunes.length; j < maxJ; j++) {
             let renderElemId = "renderForSet" + i + "Tune" + j;
-            createElem(tuneRenderDiv, null, "div", renderElemId, null, SWITCH_BORDER_TUNES.checked ? ["border", "border-black", "m-1"] : null, null);
+            createElem(tuneRenderDiv, null, "div", renderElemId, null, SWITCH_BORDER_TUNES.checked ? ["border", "border-black", "my-1"] : null, null);
             renderElemIdArray.push(renderElemId);
          }
          let renderOptions = { paddingleft: 0, paddingbottom: 5, paddingright: 0, paddingtop: 5, responsive: "resize", warnings_id: WARNINGS_DIV.id };
@@ -254,7 +261,7 @@ SWITCH_RENDER_TUNE_NAMES.addEventListener('change', updateAbcTextArea);
 SWITCH_BORDER_SETS.addEventListener('change', updateAbcTextArea);
 SWITCH_BORDER_TUNES.addEventListener('change', updateAbcTextArea);
 //SWITCH_ALIGN_TUNES_IN_COLLECTION.addEventListener('change', updateAbcTextArea);
-//SWITCH_RENDER_TUNE_ENDINGS.addEventListener('change', updateAbcTextArea);
+SWITCH_RENDER_TUNE_ENDINGS.addEventListener('change', updateAbcTextArea);
 //SWITCH_RENDER_KEY.addEventListener('change', updateAbcTextArea);
 //SWITCH_RENDER_BEGIN_END.addEventListener('change', updateAbcTextArea);
 //RADIO_BAR_BEGIN.addEventListener('change', updateAbcTextArea);
