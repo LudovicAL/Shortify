@@ -38,7 +38,13 @@
 
 <body>
    <div class="m-3 d-print-none">
-      <button type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#aboutCollapsed">À propos</button>
+      <div class="d-flex justify-content-between align-items-center flex-wrap flex-fill">
+         <button type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#aboutCollapsed">À propos</button>
+         <select data-i18n-switcher class="form-select w-auto" aria-label="Dropdown menu for langage selection" id="langage-selection">
+            <option value="fr" selected>fr</option>
+            <option value="en">en</option>
+         </select>
+      </div>
       <div class="d-flex justify-content-center">
          <img src="icons/title.png" alt="Shortify" class="img-fluid" style="height:100px">
       </div>
