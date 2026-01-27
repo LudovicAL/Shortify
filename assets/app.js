@@ -167,7 +167,7 @@ function updateAbcTextArea() {
                + tuneData.incipit_start;
             if (SWITCH_RENDER_TUNE_ENDINGS.checked) {
                abcInputText += "\n\n"
-                  + "X:" + (index++) + "\n";
+                  + "X:" + (index++) + "\n"
                   + "M:" + tuneData.time_signature + "\n"
                   + "L:" + tuneData.default_note_length + "\n"
                   + "K:" + tuneData.key + "\n"
@@ -217,10 +217,10 @@ function updateWarnings() {
       noWarningDiv.innerText = "Aucune erreur";
    }
    console.log("Finished: Warnings update");
-   updateAbcRender();
+   updateRenderings();
 }
 
-function updateAbcRender() {
+function updateRenderings() {
    console.log("Started: ABC render update");
    //Delete obsolete content
    while (RENDERING_DIV.firstChild) {
@@ -230,7 +230,7 @@ function updateAbcRender() {
    for (let i = 0, maxI = ABC_DIV.children.length; i < maxI; i++) {
       let abcTextArea = ABC_DIV.children[i].getElementsByTagName("textarea");
       if (abcTextArea[0].value) {
-         let tuneRenderDiv = createElem(RENDERING_DIV, null, "div", null, null, SWITCH_BORDER_SETS.checked ? ["border", "border-black", "my-1"] : null, null);
+         let tuneRenderDiv = createElem(RENDERING_DIV, null, "div", null, null, SWITCH_BORDER_SETS.checked ? ["border", "border-black", "my-2"] : null, null);
          if (SWITCH_RENDER_SET_NAMES.checked) {
             createElem(tuneRenderDiv, null, "div", null, null, ["fw-bold"], ABC_DIV.children[i].children[0].innerText);
          }
@@ -238,7 +238,7 @@ function updateAbcRender() {
          let renderElemIdArray = [];
          for (let j = 0, maxJ = tuneBook.tunes.length; j < maxJ; j++) {
             let renderElemId = "renderForSet" + i + "Tune" + j;
-            createElem(tuneRenderDiv, null, "div", renderElemId, null, SWITCH_BORDER_TUNES.checked ? ["border", "border-black", "my-1"] : null, null);
+            createElem(tuneRenderDiv, null, "div", renderElemId, null, SWITCH_BORDER_TUNES.checked ? ["border", "border-black", "m-1"] : null, null);
             renderElemIdArray.push(renderElemId);
          }
          let renderOptions = { paddingleft: 0, paddingbottom: 5, paddingright: 0, paddingtop: 5, responsive: "resize", warnings_id: WARNINGS_DIV.id };
