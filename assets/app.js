@@ -159,14 +159,13 @@ function updateAbcTextArea() {
       for (let i = 0, max = tunesSet.tuneList.length; i < max; i++) {
          let tuneData = getTuneData(tunesSet.tuneList[i].tuneName);
          if (tuneData) {
-            abcInputText += (
-               "X:" + index + "\n"
-               + "R:" + tuneData.file_name.split(";")[0] + "\n"
-               + "M:" + tuneData.time_signature + "\n"
+            abcInputText += SWITCH_RENDER_SET_NAMES.checked ? "X:" + index + "\n" : "";   
+            abcInputText += SWITCH_RENDER_TUNE_NAMES.checked ? "R:" + tunesSet.setName + "\n" : "";
+            abcInputText += "R:" + tuneData.file_name.split(";")[0] + "\n";
+            abcInputText += "M:" + tuneData.time_signature + "\n"
                + "L:" + tuneData.default_note_length + "\n"
                + "K:" + tuneData.key + "\n"
-               + tuneData.incipit_start
-            );
+               + tuneData.incipit_start;
             if (i < (max - 1)) {
                abcInputText += "\n\n";
             }
@@ -225,13 +224,14 @@ function updateAbcRender() {
    for (let i = 0, maxI = ABC_DIV.children.length; i < maxI; i++) {
       let abcTextArea = ABC_DIV.children[i].getElementsByTagName("textarea");
       if (abcTextArea[0].value) {
-         let tuneRenderDiv = createElem(RENDERING_DIV, null, "div", null, null, ["border"], null);
+         
+         let tuneRenderDiv = createElem(RENDERING_DIV, null, "div", null, null, SWITCH_BORDER_SETS.checked ? ["border"] : null, null);
          createElem(tuneRenderDiv, null, "div", null, null, ["fw-bold"], ABC_DIV.children[i].children[0].innerText);
          let tuneBook = new ABCJS.TuneBook(abcTextArea[0].value);
          let renderElemIdArray = [];
          for (let j = 0, maxJ = tuneBook.tunes.length; j < maxJ; j++) {
             let renderElemId = "renderForSet" + i + "Tune" + j;
-            createElem(tuneRenderDiv, null, "div", renderElemId, null, null);
+            createElem(tuneRenderDiv, null, "div", renderElemId, SWITCH_BORDER_TUNES.checked ? ["border"] : null, null);
             renderElemIdArray.push(renderElemId);
          }
          let renderOptions = { paddingleft: 0, paddingbottom: 5, paddingright: 0, paddingtop: 5, responsive: "resize", warnings_id: WARNINGS_DIV.id };
@@ -248,3 +248,8 @@ function printRendering() {
    PRINT_DIV.innerHTML = "";
    console.log("Finished: Printing");
 }
+
+SWITCH_RENDER_SET_NAMES.addEventListener('change', updateAbcTextArea);
+SWITCH_RENDER_TUNE_NAMES.addEventListener('change', updateAbcTextArea);
+SWITCH_BORDER_SETS.addEventListener('change', updateAbcTextArea);
+SWITCH_BORDER_TUNES.addEventListener('change', updateAbcTextArea);
