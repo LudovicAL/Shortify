@@ -165,7 +165,7 @@ function updateAbcTextArea() {
             abcInputText += SWITCH_RENDER_BAR_INDICATIONS.checked ? "M:" + tuneData.time_signature + "\n" : "";
             abcInputText += "L:" + tuneData.default_note_length + "\n";
             abcInputText += SWITCH_RENDER_SIGNATURES.checked ? "K:" + tuneData.key + "\n" : "";
-            abcInputText += SWITCH_RENDER_KEYS.checked ? "[K:clef=none] " : "";
+            abcInputText += SWITCH_RENDER_KEYS.checked ? "" : "[K:clef=none] ";
             abcInputText += tuneData.incipit_start;
             if (SWITCH_RENDER_TUNE_ENDINGS.checked) {
                abcInputText += "\n\n";
@@ -174,7 +174,7 @@ function updateAbcTextArea() {
                abcInputText += SWITCH_RENDER_BAR_INDICATIONS.checked && SWITCH_RENDER_BAR_INDICATION_END.checked ? "M:" + tuneData.time_signature + "\n" : "";
                abcInputText += "L:" + tuneData.default_note_length + "\n";
                abcInputText += SWITCH_RENDER_SIGNATURES.checked && SWITCH_RENDER_SIGNATURE_END.checked ? "K:" + tuneData.key + "\n" : "";
-               abcInputText += SWITCH_RENDER_KEYS.checked && SWITCH_RENDER_KEY_END.checked ? "[K:clef=none] " : "";
+               abcInputText += SWITCH_RENDER_KEYS.checked && SWITCH_RENDER_KEY_END.checked ? "" : "[K:clef=none] ";
                abcInputText += tuneData.incipit_end;
             }
             if (i < (max - 1)) {
