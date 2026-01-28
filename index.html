@@ -28,7 +28,6 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/abcjs@6.2.0/dist/abcjs-basic-min.js"></script>
    <script type="module">
       import { get, set, clear, keys, del }
       from "./assets/idb-keyval/idb-keyval.mjs";
@@ -206,20 +205,20 @@
                   <label class="form-check-label" for="switchRenderKeyEnd">Afficher les clés pour les fins des pièces</label>
                </div>
                <div class="form-check form-switch my-2">
-                  <input class="form-check-input" type="checkbox" role="switch" id="switchRenderSignatures" checked>
-                  <label class="form-check-label" for="switchRenderSignatures">Afficher les signatures des pièces</label>
+                  <input class="form-check-input" type="checkbox" role="switch" id="switchRenderKeySignatures" checked>
+                  <label class="form-check-label" for="switchRenderKeySignatures">Afficher les signatures des pièces</label>
                </div>
                <div class="form-check form-switch my-2">
-                  <input class="form-check-input" type="checkbox" role="switch" id="switchRenderSignatureEnd" checked>
-                  <label class="form-check-label" for="switchRenderSignatureEnd">Afficher les signatures pour les fins des pièces</label>
+                  <input class="form-check-input" type="checkbox" role="switch" id="switchRenderKeySignatureEnd" checked>
+                  <label class="form-check-label" for="switchRenderKeySignatureEnd">Afficher les signatures pour les fins des pièces</label>
                </div>
                <div class="form-check form-switch my-2">
-                  <input class="form-check-input" type="checkbox" role="switch" id="switchRenderBarIndications" checked>
-                  <label class="form-check-label" for="switchRenderBarIndications">Afficher les indications de mesure</label>
+                  <input class="form-check-input" type="checkbox" role="switch" id="switchRenderTimeSignatures" checked>
+                  <label class="form-check-label" for="switchRenderTimeSignatures">Afficher les indications de mesure</label>
                </div>
                <div class="form-check form-switch my-2">
-                  <input class="form-check-input" type="checkbox" role="switch" id="switchRenderBarIndicationEnd" checked>
-                  <label class="form-check-label" for="switchRenderBarIndicationEnd">Afficher les indications de mesure pour les fins des pièces</label>
+                  <input class="form-check-input" type="checkbox" role="switch" id="switchRenderTimeSignatureEnd" checked>
+                  <label class="form-check-label" for="switchRenderTimeSignatureEnd">Afficher les indications de mesure pour les fins des pièces</label>
                </div>
                <div class="form-check form-switch my-2">
                   <input class="form-check-input" type="checkbox" role="switch" id="switchRenderBeginEnd" checked>
@@ -270,6 +269,7 @@
    <div id="toastDiv" class="toast-container position-absolute bottom-0 end-0 p-3"></div>
    <div id="abcDataDiv", class"d-none"></div>
    <datalist id="tuneDatalistDiv"></datalist>
+   <script type="text/javascript" src="assets/abcjs/abcjs-basic-min.js"></script>
    <script type="text/javascript" src="assets/constants.js"></script>
    <script type="text/javascript" src="assets/utils.js"></script>
    <script type="text/javascript" src="assets/incipitIndexService.js"></script>
