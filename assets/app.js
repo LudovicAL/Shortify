@@ -161,18 +161,20 @@ function updateAbcTextArea() {
          if (tuneData) {
             abcInputText += "X:" + (index++) + "\n";
             abcInputText += SWITCH_RENDER_TUNE_NAMES.checked ? "R:" + tuneData.file_name.split(";")[0] + "\n" : "";
-            abcInputText += SWITCH_RENDER_TUNE_ENDINGS.checked && SWITCH_RENDER_BEGIN_END.checked ? "R:Begin\n" : "";
+            abcInputText += SWITCH_RENDER_TUNE_ENDINGS.checked && SWITCH_RENDER_BEGIN_END.checked ? "R:(Begin)\n" : "";
             abcInputText += SWITCH_RENDER_BAR_INDICATIONS.checked ? "M:" + tuneData.time_signature + "\n" : "";
             abcInputText += "L:" + tuneData.default_note_length + "\n";
-            abcInputText += SWITCH_RENDER_KEYS.checked ? "K:" + tuneData.key + "\n" : "";
+            abcInputText += SWITCH_RENDER_SIGNATURES.checked ? "K:" + tuneData.key + "\n" : "";
+            abcInputText += SWITCH_RENDER_KEYS.checked ? "[K:clef=none] " : "";
             abcInputText += tuneData.incipit_start;
             if (SWITCH_RENDER_TUNE_ENDINGS.checked) {
                abcInputText += "\n\n";
                abcInputText += "X:" + (index++) + "\n";
-               abcInputText += SWITCH_RENDER_TUNE_ENDINGS.checked && SWITCH_RENDER_BEGIN_END.checked ? "R:End\n" : "";
+               abcInputText += SWITCH_RENDER_TUNE_ENDINGS.checked && SWITCH_RENDER_BEGIN_END.checked ? "R:(End)\n" : "";
                abcInputText += SWITCH_RENDER_BAR_INDICATIONS.checked && SWITCH_RENDER_BAR_INDICATION_END.checked ? "M:" + tuneData.time_signature + "\n" : "";
                abcInputText += "L:" + tuneData.default_note_length + "\n";
-               abcInputText += SWITCH_RENDER_KEYS.checked && SWITCH_RENDER_KEY_END.checked ? "K:" + tuneData.key + "\n" : "";
+               abcInputText += SWITCH_RENDER_SIGNATURES.checked && SWITCH_RENDER_SIGNATURE_END.checked ? "K:" + tuneData.key + "\n" : "";
+               abcInputText += SWITCH_RENDER_KEYS.checked && SWITCH_RENDER_KEY_END.checked ? "[K:clef=none] " : "";
                abcInputText += tuneData.incipit_end;
             }
             if (i < (max - 1)) {
@@ -266,6 +268,8 @@ SWITCH_BORDER_TUNES.addEventListener('change', updateAbcTextArea);
 SWITCH_RENDER_TUNE_ENDINGS.addEventListener('change', updateAbcTextArea);
 SWITCH_RENDER_KEYS.addEventListener('change', updateAbcTextArea);
 SWITCH_RENDER_KEY_END.addEventListener('change', updateAbcTextArea);
+SWITCH_RENDER_SIGNATURES.addEventListener('change', updateAbcTextArea);
+SWITCH_RENDER_SIGNATURE_END.addEventListener('change', updateAbcTextArea);
 SWITCH_RENDER_BAR_INDICATIONS.addEventListener('change', updateAbcTextArea);
 SWITCH_RENDER_BAR_INDICATION_END.addEventListener('change', updateAbcTextArea);
 SWITCH_RENDER_BEGIN_END.addEventListener('change', updateAbcTextArea);
