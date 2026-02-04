@@ -1,3 +1,14 @@
+/*
+ * When sets or tunes are added to the list, 3 things are updated in the following order:
+ *   1. The left panel (with a call to updateLeftPanel())
+ *   2. The abc textarea (with a call to updateAbcTextArea())
+ *   3. The renderings (with a call to updateRenderings())
+ *
+ * Changins some of the options may also trigger updates. It always updates the buttons
+ * themselves (enabling or disabling some of them), and then updates both the abc textarea
+ * and the renderings (with calls to updateAbcTextArea() and updateRenderings() in this order).
+*/
+
 var setList = [];
 
 addSet();
@@ -260,18 +271,33 @@ function printRendering() {
    console.log("Finished: Printing");
 }
 
+function updateButtonsAndAbcTextArea() {
+   SWITCH_RENDER_KEY_END.disabled = !SWITCH_RENDER_TUNE_ENDINGS.checked || !SWITCH_RENDER_KEYS.checked;
+   SWITCH_RENDER_KEY_SIGNATURE_END.disabled = !SWITCH_RENDER_TUNE_ENDINGS.checked || !SWITCH_RENDER_KEY_SIGNATURES.checked;
+   SWITCH_RENDER_TIME_SIGNATURE_END.disabled = !SWITCH_RENDER_TUNE_ENDINGS.checked || !SWITCH_RENDER_TIME_SIGNATURES.checked;
+   SWITCH_RENDER_BEGIN_END.disabled = !SWITCH_RENDER_TUNE_ENDINGS.checked;
+   RADIO_BAR_END_1.disabled = !SWITCH_RENDER_TUNE_ENDINGS.checked;
+   RADIO_BAR_END_2.disabled = !SWITCH_RENDER_TUNE_ENDINGS.checked;
+   if (SWITCH_RENDER_TUNE_ENDINGS.checked) {
+      RADIO_BAR_END_2_LABEL.classList.remove("text-secondary");
+   } else {
+      RADIO_BAR_END_2_LABEL.classList.add("text-secondary");
+   }
+   updateAbcTextArea();
+}
+
 SWITCH_RENDER_SET_NAMES.addEventListener('change', updateRenderings);
 SWITCH_RENDER_TUNE_NAMES.addEventListener('change', updateAbcTextArea);
 SWITCH_BORDER_SETS.addEventListener('change', updateRenderings);
 SWITCH_BORDER_TUNES.addEventListener('change', updateRenderings);
 //SWITCH_ALIGN_TUNES_IN_COLLECTION.addEventListener('change', updateAbcTextArea);
-SWITCH_RENDER_TUNE_ENDINGS.addEventListener('change', updateAbcTextArea);
-SWITCH_RENDER_KEYS.addEventListener('change', updateAbcTextArea);
+SWITCH_RENDER_TUNE_ENDINGS.addEventListener('change', updateButtonsAndAbcTextArea);
+SWITCH_RENDER_KEYS.addEventListener('change', updateButtonsAndAbcTextArea);
 SWITCH_RENDER_KEY_END.addEventListener('change', updateAbcTextArea);
-SWITCH_RENDER_KEY_SIGNATURES.addEventListener('change', updateAbcTextArea);
+SWITCH_RENDER_KEY_SIGNATURES.addEventListener('change', updateButtonsAndAbcTextArea);
 SWITCH_RENDER_KEY_SIGNATURE_END.addEventListener('change', updateAbcTextArea);
-SWITCH_RENDER_TIME_SIGNATURES.addEventListener('change', updateAbcTextArea);
+SWITCH_RENDER_TIME_SIGNATURES.addEventListener('change', updateButtonsAndAbcTextArea);
 SWITCH_RENDER_TIME_SIGNATURE_END.addEventListener('change', updateAbcTextArea);
 SWITCH_RENDER_BEGIN_END.addEventListener('change', updateAbcTextArea);
-//RADIO_BAR_BEGIN.addEventListener('change', updateAbcTextArea);
-//RADIO_BAR_END.addEventListener('change', updateAbcTextArea);
+//RADIO_BAR_BEGIN_1.addEventListener('change', updateAbcTextArea);
+//RADIO_BAR_END_1.addEventListener('change', updateAbcTextArea);
