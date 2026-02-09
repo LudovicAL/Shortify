@@ -172,7 +172,7 @@ function updateAbcTextArea() {
          if (tuneData) {
             abcInputText += "X:" + (index++) + "\n";
             abcInputText += SWITCH_RENDER_TUNE_NAMES.checked ? "R:" + tuneData.file_name.split(";")[0] + "\n" : "";
-            abcInputText += SWITCH_RENDER_TUNE_ENDINGS.checked && SWITCH_RENDER_BEGIN_END.checked ? "R:(Begin)\n" : "";
+            abcInputText += SWITCH_RENDER_TUNE_ENDINGS.checked && SWITCH_RENDER_BEGIN_END.checked ? "R:(Début)\n" : "";
             abcInputText += SWITCH_RENDER_TIME_SIGNATURES.checked ? "M:" + tuneData.time_signature + "\n" : "";
             abcInputText += "L:" + tuneData.default_note_length + "\n";
             abcInputText += SWITCH_RENDER_KEY_SIGNATURES.checked ? "K:" + tuneData.key + "\n" : "";
@@ -184,7 +184,7 @@ function updateAbcTextArea() {
             if (SWITCH_RENDER_TUNE_ENDINGS.checked) {
                abcInputText += "\n\n";
                abcInputText += "X:" + (index++) + "\n";
-               abcInputText += SWITCH_RENDER_TUNE_ENDINGS.checked && SWITCH_RENDER_BEGIN_END.checked ? "R:(End)\n" : "";
+               abcInputText += SWITCH_RENDER_TUNE_ENDINGS.checked && SWITCH_RENDER_BEGIN_END.checked ? "R:(Fin)\n" : "";
                abcInputText += SWITCH_RENDER_TIME_SIGNATURES.checked && SWITCH_RENDER_TIME_SIGNATURE_END.checked ? "M:" + tuneData.time_signature + "\n" : "";
                abcInputText += "L:" + tuneData.default_note_length + "\n";
                abcInputText += SWITCH_RENDER_KEY_SIGNATURES.checked && SWITCH_RENDER_KEY_SIGNATURE_END.checked ? "K:" + tuneData.key + "\n" : "";
