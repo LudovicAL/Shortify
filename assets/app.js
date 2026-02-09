@@ -177,7 +177,10 @@ function updateAbcTextArea() {
             abcInputText += "L:" + tuneData.default_note_length + "\n";
             abcInputText += SWITCH_RENDER_KEY_SIGNATURES.checked ? "K:" + tuneData.key + "\n" : "";
             abcInputText += SWITCH_RENDER_KEYS.checked ? "" : "[K:clef=none] ";
-            abcInputText += tuneData.incipit_start;
+            abcInputText += tuneData.bar1;
+            if (RADIO_BAR_BEGIN_2.checked) {
+               abcInputText += tuneData.bar2;
+            }
             if (SWITCH_RENDER_TUNE_ENDINGS.checked) {
                abcInputText += "\n\n";
                abcInputText += "X:" + (index++) + "\n";
@@ -186,7 +189,10 @@ function updateAbcTextArea() {
                abcInputText += "L:" + tuneData.default_note_length + "\n";
                abcInputText += SWITCH_RENDER_KEY_SIGNATURES.checked && SWITCH_RENDER_KEY_SIGNATURE_END.checked ? "K:" + tuneData.key + "\n" : "";
                abcInputText += SWITCH_RENDER_KEYS.checked && SWITCH_RENDER_KEY_END.checked ? "" : "[K:clef=none] ";
-               abcInputText += tuneData.incipit_end;
+               if(RADIO_BAR_END_2.checked) {
+                  abcInputText += tuneData.barNminus1;
+               }
+               abcInputText += tuneData.barN;
             }
             if (i < (max - 1)) {
                abcInputText += "\n\n";
@@ -299,5 +305,5 @@ SWITCH_RENDER_KEY_SIGNATURE_END.addEventListener('change', updateAbcTextArea);
 SWITCH_RENDER_TIME_SIGNATURES.addEventListener('change', updateButtonsAndAbcTextArea);
 SWITCH_RENDER_TIME_SIGNATURE_END.addEventListener('change', updateAbcTextArea);
 SWITCH_RENDER_BEGIN_END.addEventListener('change', updateAbcTextArea);
-//RADIO_BAR_BEGIN_1.addEventListener('change', updateAbcTextArea);
-//RADIO_BAR_END_1.addEventListener('change', updateAbcTextArea);
+RADIO_BAR_BEGIN_1.addEventListener('change', updateAbcTextArea);
+RADIO_BAR_END_1.addEventListener('change', updateAbcTextArea);
