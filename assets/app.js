@@ -163,7 +163,7 @@ function updateAbcTextArea() {
    for (tunesSet of setList) {
       let index = 1;
       let abcInputText = "";
-      let abcDiv = createElem(ABC_DIV, null, "div", null, null, ["my-1"], null);
+      let abcDiv = createElem(ABC_DIV, null, "div", null, null, ["m-1"], null);
       createElem(abcDiv, null, "div", null, null, ["fw-bold"], tunesSet.setName)
       let abcTextArea = createElem(abcDiv, null, "textarea", null, null, ["form-control"], null);
       abcTextArea.addEventListener('input', updateWarnings);
