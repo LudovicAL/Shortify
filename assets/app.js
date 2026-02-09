@@ -306,4 +306,6 @@ SWITCH_RENDER_TIME_SIGNATURES.addEventListener('change', updateButtonsAndAbcText
 SWITCH_RENDER_TIME_SIGNATURE_END.addEventListener('change', updateAbcTextArea);
 SWITCH_RENDER_BEGIN_END.addEventListener('change', updateAbcTextArea);
 RADIO_BAR_BEGIN_1.addEventListener('change', updateAbcTextArea);
+RADIO_BAR_BEGIN_2.addEventListener('change', updateAbcTextArea);
 RADIO_BAR_END_1.addEventListener('change', updateAbcTextArea);
+RADIO_BAR_END_2.addEventListener('change', updateAbcTextArea);
