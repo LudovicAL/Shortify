@@ -37,14 +37,14 @@
 
 <body>
    <div class="m-3 d-print-none">
-      <div class="d-flex justify-content-between align-items-center flex-wrap flex-fill">
+      <div class="d-flex d-print-none justify-content-between align-items-center flex-wrap flex-fill">
          <button type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#aboutCollapsed">À propos</button>
          <select data-i18n-switcher class="form-select w-auto" aria-label="Dropdown menu for langage selection" id="langage-selection">
             <option value="fr" selected>fr</option>
             <option value="en">en</option>
          </select>
       </div>
-      <div class="d-flex justify-content-center">
+      <div class="d-flex d-print-none justify-content-center">
          <img src="icons/title.png" alt="Shortify" class="img-fluid" style="height:100px">
       </div>
       <div id="aboutCollapsed" class="collapse mt-3 p-4 bg-light rounded">
@@ -64,15 +64,15 @@
          <p>
             La troisième et dernière étape consiste à imprimer le matériel grâce au bouton d'impression.
          </p>
-         <div class="d-flex justify-content-between align-items-center flex-wrap flex-fill mb-3">
-            <a href="https://buymeacoffee.com/ludovical" class="d-flex align-items-center flex-nowrap rounded-3 border border-2 p-2 text-reset text-decoration-none" title="Buy me a coffee" target="_blank">
+         <div class="d-flex d-print-none justify-content-between align-items-center flex-wrap flex-fill mb-3">
+            <a href="https://buymeacoffee.com/ludovical" class="d-flex d-print-none align-items-center flex-nowrap rounded-3 border border-2 p-2 text-reset text-decoration-none" title="Buy me a coffee" target="_blank">
                <img src="icons/buyMeACoffee.svg" alt="Buy me a coffee" class="img-fluid p-0" style="height:25px">
                <div data-i18n-key="buymeacoffee" class="fw-bolder p-0">Achetez-moi un café</div>
             </a>
             <a href="mailto:ludovicaubut@hotmail.com" class="btn btn-warning" role="button">Envoyer une rétroaction</a>
          </div>
          <h4>Liens utiles</h4>
-         <div class="container d-flex flex-wrap flex-fill justify-content-center">
+         <div class="container d-flex d-print-none flex-wrap flex-fill justify-content-center">
             <div class="card m-1" style="width: 18rem;">
                <div class="card-body">
                   <h5 class="card-title">Tradify</h5>
@@ -240,7 +240,7 @@
             </div>
          </div>
       </div>
-      <div class="d-flex justify-content-between align-items-start flex-wrap flex-fill m-3">
+      <div class="d-flex d-print-none justify-content-between align-items-start flex-wrap flex-fill m-3">
          <div id="leftColumn" class="mt-2">
             <div id="setsDiv"></div>
             <button id="addSetButton" type="button" class="btn btn-success my-1" onclick="addSet();">Ajouter une collection</button>
@@ -276,7 +276,6 @@
    </div>
    <div id="printDiv" class="d-none d-print-block"></div>
    <div id="toastDiv" class="toast-container position-absolute bottom-0 end-0 p-3"></div>
-   <div id="abcDataDiv", class"d-none"></div>
    <datalist id="tuneDatalistDiv"></datalist>
    <script type="text/javascript" src="assets/abcjs/abcjs-basic-min.js"></script>
    <script type="text/javascript" src="assets/constants.js"></script>
