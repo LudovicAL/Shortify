@@ -182,8 +182,7 @@ function updateAbcTextArea() {
             }
             if (SWITCH_RENDER_TUNE_ENDINGS.checked) {
                if (SWITCH_RENDER_BEGIN_END.checked) {
-                  abcInputText += "\n";
-                  abcInputText += "Début";
+                  abcInputText += "\nw: Début";
                }
                abcInputText += "\n\n";
                abcInputText += "X:" + (index++) + "\n";               abcInputText += SWITCH_RENDER_TIME_SIGNATURES.checked && SWITCH_RENDER_TIME_SIGNATURE_END.checked ? "M:" + tuneData.time_signature + "\n" : "";
@@ -195,8 +194,7 @@ function updateAbcTextArea() {
                }
                abcInputText += tuneData.barN;
                if (SWITCH_RENDER_BEGIN_END.checked) {
-                  abcInputText += "\n";
-                  abcInputText += "Fin";
+                  abcInputText += "\nw: Fin";
                }
             }
             if (i < (max - 1)) {
