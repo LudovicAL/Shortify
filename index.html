@@ -166,10 +166,88 @@
             </div>
          </div>
       </div>
-      <div class="d-flex justify-content-between align-items-start flex-wrap flex-fill">
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+         <div class="offcanvas-header">
+            <h4 class="offcanvas-title" id="offcanvasLabel">Options</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+         </div>
+         <div class="offcanvas-body">
+            <div class="form-check form-switch my-2">
+               <input class="form-check-input" type="checkbox" role="switch" id="switchRenderSetNames" checked>
+               <label class="form-check-label" for="switchRenderSetNames">Afficher les noms des collections</label>
+            </div>
+            <div class="form-check form-switch my-2">
+               <input class="form-check-input" type="checkbox" role="switch" id="switchRenderTuneNames" checked>
+               <label class="form-check-label" for="switchRenderTuneNames">Afficher les noms des pièces</label>
+            </div>
+            <div class="form-check form-switch my-2">
+               <input class="form-check-input" type="checkbox" role="switch" id="switchBorderSets" checked>
+               <label class="form-check-label" for="switchBorderSets">Encadrer les collections</label>
+            </div>
+            <div class="form-check form-switch my-2">
+               <input class="form-check-input" type="checkbox" role="switch" id="switchBorderTunes" checked>
+               <label class="form-check-label" for="switchBorderTunes">Encadrer les pièces</label>
+            </div>
+            <div class="form-check form-switch my-2">
+               <input class="form-check-input" type="checkbox" role="switch" id="switchAlignTunesInCollection" checked>
+               <label class="form-check-label" for="switchAlignTunesInCollection">Aligner les pièces d'une collection</label>
+            </div>
+            <div class="form-check form-switch my-2">
+               <input class="form-check-input" type="checkbox" role="switch" id="switchRenderTuneEndings" checked>
+               <label class="form-check-label" for="switchRenderTuneEndings">Afficher les fins des pièces</label>
+            </div>
+            <div class="form-check form-switch my-2">
+               <input class="form-check-input" type="checkbox" role="switch" id="switchRenderKeys" checked>
+               <label class="form-check-label" for="switchRenderKeys">Afficher les clés des pièces</label>
+            </div>
+            <div class="form-check form-switch my-2">
+               <input class="form-check-input" type="checkbox" role="switch" id="switchRenderKeyEnd" checked>
+               <label class="form-check-label" for="switchRenderKeyEnd">Afficher les clés pour les fins des pièces</label>
+            </div>
+            <div class="form-check form-switch my-2">
+               <input class="form-check-input" type="checkbox" role="switch" id="switchRenderKeySignatures" checked>
+               <label class="form-check-label" for="switchRenderKeySignatures">Afficher les signatures des pièces</label>
+            </div>
+            <div class="form-check form-switch my-2">
+               <input class="form-check-input" type="checkbox" role="switch" id="switchRenderKeySignatureEnd" checked>
+               <label class="form-check-label" for="switchRenderKeySignatureEnd">Afficher les signatures pour les fins des pièces</label>
+            </div>
+            <div class="form-check form-switch my-2">
+               <input class="form-check-input" type="checkbox" role="switch" id="switchRenderTimeSignatures" checked>
+               <label class="form-check-label" for="switchRenderTimeSignatures">Afficher les indications de mesure</label>
+            </div>
+            <div class="form-check form-switch my-2">
+               <input class="form-check-input" type="checkbox" role="switch" id="switchRenderTimeSignatureEnd" checked>
+               <label class="form-check-label" for="switchRenderTimeSignatureEnd">Afficher les indications de mesure pour les fins des pièces</label>
+            </div>
+            <div class="form-check form-switch my-2">
+               <input class="form-check-input" type="checkbox" role="switch" id="switchRenderBeginEnd" checked>
+               <label class="form-check-label" for="switchRenderBeginEnd">Afficher les indication de début et de fin des pièces</label>
+            </div>
+            <div class="my-2">
+               <input type="radio" class="btn-check" name="option-number-of-bars-begin" id="radio-bar-begin-1" autocomplete="off">
+               <label class="btn btn-outline-primary" for="radio-bar-begin-1">1</label>
+               <input type="radio" class="btn-check" name="option-number-of-bars-begin" id="radio-bar-begin-2" autocomplete="off" checked>
+               <label class="btn btn-outline-primary" for="radio-bar-begin-2">2</label>
+               Nombre de mesures à afficher pour le début des pièces
+            </div>
+            <div class="my-2">
+               <input type="radio" class="btn-check" name="option-number-of-bars-end" id="radio-bar-end-1" autocomplete="off">
+               <label class="btn btn-outline-primary" for="radio-bar-end-1">1</label>
+               <input type="radio" class="btn-check" name="option-number-of-bars-end" id="radio-bar-end-2" autocomplete="off" checked>
+               <label class="btn btn-outline-primary" for="radio-bar-end-2">2</label>
+               <span id="radio-2-bars-end-label">Nombre de mesures à afficher pour la fin des pièces</div>
+            </div>
+         </div>
+      </div>
+      <div class="d-flex justify-content-between align-items-start flex-wrap flex-fill m-3">
          <div id="leftColumn" class="mt-2">
             <div id="setsDiv"></div>
-            <button id="addSetButton" type="button" class="btn btn-success" onclick="addSet();">Ajouter une collection</button>
+            <button id="addSetButton" type="button" class="btn btn-success my-1" onclick="addSet();">Ajouter une collection</button>
+            <br>
+            <button class="btn btn-primary my-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvasExample">
+               Options
+            </button>
          </div>
          <div id="rightColumn" class="mt2 mx-2 flex-fill">
             <ul class="nav nav-tabs nav-justified">
@@ -193,75 +271,6 @@
                </div>
             </div>
             <div id="warningsDiv"></div>
-         </div>
-      </div>
-      <div class="mt-4">
-         <h4>Options</h4>
-         <div class="form-check form-switch my-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchRenderSetNames" checked>
-            <label class="form-check-label" for="switchRenderSetNames">Afficher les noms des collections</label>
-         </div>
-         <div class="form-check form-switch my-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchRenderTuneNames" checked>
-            <label class="form-check-label" for="switchRenderTuneNames">Afficher les noms des pièces</label>
-         </div>
-         <div class="form-check form-switch my-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchBorderSets" checked>
-            <label class="form-check-label" for="switchBorderSets">Encadrer les collections</label>
-         </div>
-         <div class="form-check form-switch my-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchBorderTunes" checked>
-            <label class="form-check-label" for="switchBorderTunes">Encadrer les pièces</label>
-         </div>
-         <div class="form-check form-switch my-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchAlignTunesInCollection" checked>
-            <label class="form-check-label" for="switchAlignTunesInCollection">Aligner les pièces d'une collection</label>
-         </div>
-         <div class="form-check form-switch my-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchRenderTuneEndings" checked>
-            <label class="form-check-label" for="switchRenderTuneEndings">Afficher les fins des pièces</label>
-         </div>
-         <div class="form-check form-switch my-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchRenderKeys" checked>
-            <label class="form-check-label" for="switchRenderKeys">Afficher les clés des pièces</label>
-         </div>
-         <div class="form-check form-switch my-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchRenderKeyEnd" checked>
-            <label class="form-check-label" for="switchRenderKeyEnd">Afficher les clés pour les fins des pièces</label>
-         </div>
-         <div class="form-check form-switch my-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchRenderKeySignatures" checked>
-            <label class="form-check-label" for="switchRenderKeySignatures">Afficher les signatures des pièces</label>
-         </div>
-         <div class="form-check form-switch my-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchRenderKeySignatureEnd" checked>
-            <label class="form-check-label" for="switchRenderKeySignatureEnd">Afficher les signatures pour les fins des pièces</label>
-         </div>
-         <div class="form-check form-switch my-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchRenderTimeSignatures" checked>
-            <label class="form-check-label" for="switchRenderTimeSignatures">Afficher les indications de mesure</label>
-         </div>
-         <div class="form-check form-switch my-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchRenderTimeSignatureEnd" checked>
-            <label class="form-check-label" for="switchRenderTimeSignatureEnd">Afficher les indications de mesure pour les fins des pièces</label>
-         </div>
-         <div class="form-check form-switch my-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchRenderBeginEnd" checked>
-            <label class="form-check-label" for="switchRenderBeginEnd">Afficher les indication de début et de fin des pièces</label>
-         </div>
-         <div class="my-2">
-            <input type="radio" class="btn-check" name="option-number-of-bars-begin" id="radio-bar-begin-1" autocomplete="off">
-            <label class="btn btn-outline-primary" for="radio-bar-begin-1">1</label>
-            <input type="radio" class="btn-check" name="option-number-of-bars-begin" id="radio-bar-begin-2" autocomplete="off" checked>
-            <label class="btn btn-outline-primary" for="radio-bar-begin-2">2</label>
-            Nombre de mesures à afficher pour le début des pièces
-         </div>
-         <div class="my-2">
-            <input type="radio" class="btn-check" name="option-number-of-bars-end" id="radio-bar-end-1" autocomplete="off">
-            <label class="btn btn-outline-primary" for="radio-bar-end-1">1</label>
-            <input type="radio" class="btn-check" name="option-number-of-bars-end" id="radio-bar-end-2" autocomplete="off" checked>
-            <label class="btn btn-outline-primary" for="radio-bar-end-2">2</label>
-            <span id="radio-2-bars-end-label">Nombre de mesures à afficher pour la fin des pièces</div>
          </div>
       </div>
    </div>
