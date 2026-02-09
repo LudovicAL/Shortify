@@ -6,7 +6,7 @@ window.onload = async () => {
 
 async function loadIncipitIndex() {
    console.log("Started: Incipit index retrieval");
-   incipitIndex = await fetchJsonFile(INCIPIT_INDEX_URL, "incipitIndex", 28);
+   incipitIndex = await fetchJsonFile(INCIPIT_INDEX_URL, "incipitIndex", 1);
    for (item of incipitIndex) {
       let tuneDataOption = createElem(TUNE_DATA_LIST_DIV, null, "option", null, null, null, null);
       tuneDataOption.setAttribute("value", item.file_name);
