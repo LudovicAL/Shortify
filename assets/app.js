@@ -254,7 +254,7 @@ function updateRenderings() {
    for (let i = 0, maxI = ABC_DIV.children.length; i < maxI; i++) {
       let abcTextArea = ABC_DIV.children[i].getElementsByTagName("textarea");
       if (abcTextArea[0].value) {
-         let tuneRenderDiv = createElem(RENDERING_DIV, null, "div", null, null, SWITCH_BORDER_SETS.checked ? ["border", "border-black", "my-2", "px-1"] : null, null);
+         let tuneRenderDiv = createElem(RENDERING_DIV, null, "div", null, null, SWITCH_BORDER_SETS.checked ? ["border", "border-black", "my-2", "px-1", "w-50"] : null, null);
          if (SWITCH_RENDER_SET_NAMES.checked) {
             createElem(tuneRenderDiv, null, "div", null, null, ["fw-bold"], ABC_DIV.children[i].children[0].innerText);
          }
