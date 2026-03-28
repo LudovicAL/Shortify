@@ -261,8 +261,9 @@ function updateRenderings() {
          let tuneBook = new ABCJS.TuneBook(abcTextArea[0].value);
          let renderElemIdArray = [];
          for (let j = 0, maxJ = tuneBook.tunes.length; j < maxJ; j++) {
+            let tuneRenderSpan = createElem(tuneRenderDiv, null, "span", null, null, ["w-50"], null);
             let renderElemId = "renderForSet" + i + "Tune" + j;
-            createElem(tuneRenderDiv, null, "span", renderElemId, null, SWITCH_BORDER_TUNES.checked ? ["border", "border-black", "px-1", "w-50"] : ["w-50"], null);
+            createElem(tuneRenderSpan, null, "span", renderElemId, null, SWITCH_BORDER_TUNES.checked ? ["border", "border-black", "m-1", "px-1"] : null, null);
             renderElemIdArray.push(renderElemId);
          }
          let renderOptions = { paddingleft: 0, paddingbottom: 5, paddingright: 0, paddingtop: 5, responsive: "resize", warnings_id: WARNINGS_DIV.id };
